@@ -1,0 +1,22 @@
+= form_for [:admin, user] do |f|
+      .row
+        .col-md-4
+          .form-group
+            = form_field(f, :iin, :string)
+        .col-md-4
+          = form_field(f, :date_of_birth, :date)
+        .col-md-4
+          .form-group
+            = f.label :gender
+            = f.select :gender, options_for_select(User::GENDERS.map { |g| [t("user.GENDERS.#{g}"), g] }), {}, class: 'form-control'
+      .row
+        .col-md-4
+          = form_field(f, :last_name, :string)
+        .col-md-4
+          = form_field(f, :first_name, :string)
+        .col-md-4
+          = form_field(f, :middle_name, :string)
+      .row
+        .col-md-12
+          .form-group
+            = f.submit 'Сохранить', class: 'btn btn-primary'

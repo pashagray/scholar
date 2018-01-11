@@ -1,0 +1,8 @@
+= form_for [:admin, student_profile.user, student_profile] do |f|
+  .row
+    .col-md-12
+      = form_field(f, :date_of_admission, :date)
+  .row
+    .col-md-12
+      .form-group
+        = f.submit 'Сохранить', class: 'btn btn-primary'

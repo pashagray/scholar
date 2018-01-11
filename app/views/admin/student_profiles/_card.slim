@@ -1,0 +1,14 @@
+- if user.student_profile
+  .card.bg-light.mb-3
+    .card-header Является учеником
+    .card-body
+      p.card-text Этот пользователь является учеником и может быть привязан к учебным классам.
+      p.card-text
+        = link_to 'Убрать роль ученика', admin_user_student_profile_path(user.student_profile, user_id: user.id), method: 'DELETE', class: 'btn btn-block btn-outline-danger'
+- else
+  .card.bg-light.mb-3
+    .card-header Не является учеником
+    .card-body
+      p.card-text Этот пользователь не является учеником и не может быть привязан к учебным классам.
+      p.card-text
+        = link_to 'Назначить учеником', admin_user_student_profiles_path(user_id: user.id), method: 'POST', class: 'btn btn-block btn-outline-success'

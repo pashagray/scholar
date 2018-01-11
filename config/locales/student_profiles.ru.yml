@@ -1,0 +1,9 @@
+ru:
+  activerecord:
+    models:
+      student_profile: "Анкета ученика"
+    attributes:
+      student_profile:
+        created_at: "Время создания профайла ученика"
+        updated_at: "Время изменения профайла ученика"
+        date_of_admission: "Дата приема в учебное заведение"

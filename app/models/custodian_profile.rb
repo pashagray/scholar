@@ -1,0 +1,2 @@
+class CustodianProfile < ApplicationRecord
+end

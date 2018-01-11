@@ -1,0 +1,12 @@
+= form_for [:admin, teacher_profile.user, teacher_profile] do |f|
+  .row
+    .col-md-4
+      = form_field(f, :date_of_admission, :date)
+    .col-md-4
+      = form_field(f, :edu_work_experience, :integer)
+    .col-md-4
+      = form_field(f, :total_work_experience, :integer)
+  .row
+    .col-md-12
+      .form-group
+        = f.submit 'Сохранить', class: 'btn btn-primary'

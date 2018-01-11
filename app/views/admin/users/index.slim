@@ -1,0 +1,7 @@
+- breadcrumb :admin_users, @user
+- header('Пользователи')
+- links([['Добавить пользователя', new_admin_user_path]])
+= render 'nav'
+.row
+  .col-md-12
+    = configurable_table(collection: @users, table_handler: @table_handler)

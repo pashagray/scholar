@@ -1,0 +1,5 @@
+- breadcrumb :admin_user_student_profile_edit, @user, @student_profile
+- header('Редактировать анкету ученика')
+.row
+  .col-md-12
+    = render('form', student_profile: @student_profile)

@@ -1,0 +1,10 @@
+nav.navbar.navbar-expand-md.navbar-dark.bg-dark
+  a.navbar-brand href='/' Scholar
+  button.navbar-toggler aria-controls="navbarNavDropdown" aria-expanded="false" aria-label=("Toggle navigation") data-target="#navbarNavDropdown" data-toggle="collapse" type="button" 
+    span.navbar-toggler-icon
+  #navbarNavDropdown.collapse.navbar-collapse
+    ul.navbar-nav
+      li.nav-item.active
+        = active_link_to 'Главная', admin_path, class: 'nav-link', active: :exact
+      li.nav-item
+        = active_link_to 'Пользователи', admin_users_path, class: 'nav-link'

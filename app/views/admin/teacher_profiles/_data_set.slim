@@ -1,0 +1,11 @@
+- if user.teacher_profile
+  = link_to edit_admin_user_teacher_profile_path(user.teacher_profile, user_id: user), class: 'btn btn-primary float-right' do
+    = fa_icon('pencil')
+  h3 Анкета учителя
+  - teacher_profile = user.teacher_profile
+  = data_set(teacher_profile, :created_at, :datetime)
+  = data_set(teacher_profile, :updated_at, :datetime)
+  = data_set(teacher_profile, :date_of_admission, :date)
+  = data_set(teacher_profile, :edu_work_experience, :string)
+  = data_set(teacher_profile, :total_work_experience, :string)
+  br/

@@ -1,0 +1,16 @@
+@import 'bootstrap';
+@import 'daterangepicker-bs3';
+@import 'font-awesome';
+
+.app {
+  padding: 2rem 0;
+}
+
+.data-set {
+  p {
+    margin: 0;
+    padding: 0;
+  }
+  margin: 5px 0;
+  border-bottom: 1px dotted gray;
+}

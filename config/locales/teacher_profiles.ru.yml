@@ -1,0 +1,11 @@
+ru:
+  activerecord:
+    models:
+      teacher_profile: "Анкета учителя"
+    attributes:
+      teacher_profile:
+        created_at: "Время создания профайла учителя"
+        updated_at: "Время изменения профайла учителя"
+        date_of_admission: "Дата начала работы в учебном заведении"
+        edu_work_experience: "Педагогический стаж работы"
+        total_work_experience: "Педагогический стаж работы"        

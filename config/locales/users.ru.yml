@@ -1,0 +1,26 @@
+ru:
+  user:
+    GENDERS:
+      male: "Мужской"
+      female: "Женский"
+  activerecord:
+    models:
+      user: "Пользователь"
+    attributes:
+      user:
+        iin: "ИИН"
+        gender: "Пол"
+        last_name: "Фамилия"
+        first_name: "Имя"
+        middle_name: "Отчество"
+        date_of_birth: "Дата рождения"
+        # Student
+        student_profile_created_at: "Время создания профайла ученика"
+        student_profile_date_of_admission: "Дата приема в учебное заведение"
+        # Teacher
+        teacher_profile_created_at: "Время создания профайла учителя"
+        teacher_profile_date_of_admission: "Дата найма в учебное заведение"
+        # Custodian
+        custodian_profile_created_at: "Время создания профайла родителя"
+        # Admin
+        admin_profile_created_at: "Время создания профайла администратора"

@@ -1,0 +1,14 @@
+- if user.teacher_profile
+  .card.bg-light.mb-3
+    .card-header Является учителем
+    .card-body
+      p.card-text Этот пользователь является учителем и может быть назначен предподавателем и классным руководителем.
+      p.card-text
+        = link_to 'Убрать роль учителя', admin_user_teacher_profile_path(user.teacher_profile, user_id: user.id), method: 'DELETE', class: 'btn btn-block btn-outline-danger'
+- else
+  .card.bg-light.mb-3
+    .card-header Не является учителем
+    .card-body
+      p.card-text Этот пользователь не является учителем и не может быть назначен предподавателем и классным руководителем.
+      p.card-text
+        = link_to 'Назначить учителем', admin_user_teacher_profiles_path(user_id: user.id), method: 'POST', class: 'btn btn-block btn-outline-success'

@@ -1,0 +1,34 @@
+- breadcrumb :admin_users_students, @user
+- header('Ученики')
+- links([['Добавить пользователя', new_admin_user_path]])
+= render 'nav'
+/ /! Button trigger modal
+/ button.btn.btn-outline-secondary data-target="#exampleModal" data-toggle="modal" type="button" 
+/   | Настройки таблицы
+/ /! Modal
+/ #exampleModal.modal.fade aria-hidden="true" aria-labelledby="exampleModalLabel" role="dialog" tabindex="-1" 
+/   .modal-dialog role="document" 
+/     .modal-content
+/       .modal-header
+/         h5#exampleModalLabel.modal-title Настройки
+/         button.close aria-label="Close" data-dismiss="modal" type="button" 
+/           span aria-hidden="true"  &times;
+/       .modal-body
+/         = form_tag :table_config, method: 'POST' do
+/           - @table_handler.available_columns.each do |av_col|
+/             h5
+/               | :: 
+/               = User.human_attribute_name(av_col[:name])
+/             .form-row
+/               .form-group.col-md-4
+/                 label Отображать?
+/                 = select_tag "table[admin_users_teachers][#{av_col[:name]}][display]", options_for_select([['Да', '1'], ['Нет', '0']]), class: 'form-control'
+/               .form-group.col-md-8
+/                 label Выравнивание
+/                 = select_tag "table[admin_users_teachers][#{av_col[:name]}][align]", options_for_select([['По левому краю', 'left'], ['По центру', 'center'], ['По правому краю', 'right']]), class: 'form-control'
+/           .form-row
+/             = submit_tag 'Сохранить'
+
+/ br/
+/ br/
+= configurable_table(collection: @users, table_handler: @table_handler)

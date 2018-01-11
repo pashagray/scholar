@@ -1,0 +1,12 @@
+ul.nav.nav-tabs
+  li.nav-item
+    = active_link_to 'Все пользователи', admin_users_path, active: :exact, class: 'nav-link'
+  li.nav-item
+    = active_link_to 'Ученики', students_admin_users_path, class: 'nav-link'
+  li.nav-item
+    = active_link_to 'Учителя', teachers_admin_users_path, class: 'nav-link'
+  li.nav-item
+    = active_link_to 'Родители', custodians_admin_users_path, class: 'nav-link'
+  li.nav-item
+    = active_link_to 'Администраторы', admins_admin_users_path, class: 'nav-link'
+br/

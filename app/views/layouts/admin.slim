@@ -1,0 +1,15 @@
+doctype html
+html
+  head
+    title Admin :: Scholar
+    = csrf_meta_tags
+    
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  body
+    = render 'shared/topbar'
+    .container.app
+      = yield :links
+      h1 = yield :header
+      = raw(breadcrumbs(style: :bootstrap4))
+      = yield
