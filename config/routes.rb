@@ -12,6 +12,9 @@ Rails.application.routes.draw do
         get 'custodians'
         get 'admins'
       end
+      member do
+        post 'reset_password'
+      end
       resources :student_profiles
       resources :teacher_profiles
       resources :custodian_profiles

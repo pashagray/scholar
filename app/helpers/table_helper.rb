@@ -1,5 +1,5 @@
 module TableHelper
-  def configurable_table(collection:, table_handler:)
+  def configurable_table(collection:, table_handler:, q: nil)
     klass = collection.klass
     path = self.controller_path.split('/')
     namespace = path.second ? path.first : nil

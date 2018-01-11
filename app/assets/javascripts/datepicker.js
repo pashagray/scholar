@@ -3,6 +3,8 @@ document.addEventListener("turbolinks:load", function() {
     {
       singleDatePicker: true,
       showDropdowns: true,
+      useCurrent: false,
+      defaultDate: false,
       locale: {
         format: 'YYYY-MM-DD',
       }

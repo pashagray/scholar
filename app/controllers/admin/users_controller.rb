@@ -2,7 +2,8 @@ module Admin
   class UsersController < BaseController
     def index
       @table_handler = TableHandler::AdminUsersIndex.new(current_user.config)
-      @users = User.order(:last_name, :first_name, :middle_name)
+      @q = User.ransack(params[:q])
+      @users = @q.result.order(:last_name, :first_name, :middle_name)
     end
 
     def students
@@ -30,7 +31,7 @@ module Admin
     end
 
     def create
-      password = 8.times.map { rand(0..9) }.join('')
+      password = generate_password
       @user = User.new(user_params.merge(password: password, temp_password: password))
       if @user.save
         redirect_to admin_user_path(@user)
@@ -54,6 +55,19 @@ module Admin
       else
         render :edit
       end 
+    end
+
+    def reset_password
+      @user = User.find(params[:id])
+      password = generate_password
+      @user.update(password: password, temp_password: password)
+      redirect_to admin_user_path(@user)
+    end
+
+    private
+
+    def generate_password
+      8.times.map { rand(0..9) }.join('')
     end
 
     def user_params
