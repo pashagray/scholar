@@ -73,7 +73,7 @@ module Admin
     private
 
     def generate_password
-      4.times.map { rand(0..9) }.join('')
+      6.times.map { rand(0..9) }.join('')
     end
 
     def user_params

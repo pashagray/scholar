@@ -26,6 +26,9 @@ Rails.application.routes.draw do
       member do
         post 'assign_student'
         post 'remove_student'
+
+        post 'assign_supervisor'
+        post 'remove_supervisor'
       end
     end
   end

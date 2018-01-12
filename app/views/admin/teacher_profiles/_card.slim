@@ -1,10 +1,13 @@
-- if user.teacher_profile
+- if user.teacher?
   .card.bg-light.mb-3
     .card-header Является учителем
     .card-body
       p.card-text Этот пользователь является учителем и может быть назначен предподавателем и классным руководителем.
       p.card-text
         = link_to 'Убрать роль учителя', admin_user_teacher_profile_path(user.teacher_profile, user_id: user.id), method: 'DELETE', class: 'btn btn-block btn-outline-danger'
+      - if user.supervising_study_groups
+        - user.supervising_study_groups.each do |study_group|
+          = link_to "Руководитель в #{study_group.full_title} классе", admin_study_group_path(study_group), class: 'btn btn-block btn-outline-success' 
 - else
   .card.bg-light.mb-3
     .card-header Не является учителем

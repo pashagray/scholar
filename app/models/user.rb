@@ -18,6 +18,9 @@ class User < ApplicationRecord
   has_one :study_group_student
   has_one :study_group, through: :study_group_student
 
+  has_many :study_group_supervisors
+  has_many :supervising_study_groups, through: :study_group_supervisors, source: :study_group
+
   scope :students,   -> { joins(:student_profile) }
   scope :teachers,   -> { joins(:teacher_profile) }
   scope :custodians, -> { joins(:custodian_profile) }

@@ -66,6 +66,36 @@ module Admin
       end
     end
 
+    def assign_supervisor
+      transaction = AssignSupervisorToStudyGroup.new
+      result = transaction.call(
+        study_group_id: params[:id],
+        teacher_id: params[:user_id]
+      )
+      if result.success?
+        flash[:success] = I18n.t('transactions.success.supervisor_assigned_to_study_group')
+        redirect_to admin_study_group_path(params[:id])
+      else
+        flash[:error] = I18n.t("transactions.error.#{result.value}")
+        redirect_to admin_study_group_path(params[:id])
+      end
+    end
+
+    def remove_supervisor
+      transaction = RemoveSupervisorFromStudyGroup.new
+      result = transaction.call(
+        study_group_id: params[:id],
+        teacher_id: params[:user_id]
+      )
+      if result.success?
+        flash[:success] = I18n.t('transactions.success.supervisor_removed_from_study_group')
+        redirect_to admin_study_group_path(params[:id])
+      else
+        flash[:error] = I18n.t("transactions.error.#{result.value}")
+        redirect_to admin_study_group_path(params[:id])
+      end
+    end
+
     private
 
     def study_group_params
