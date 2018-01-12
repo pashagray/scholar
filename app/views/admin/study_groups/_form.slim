@@ -1,0 +1,11 @@
+= form_for [:admin, study_group] do |f|
+  .row
+    .col-md-6
+      .form-group
+        = form_field(f, :level, :string)
+    .col-md-6
+      = form_field(f, :title, :string)
+  .row
+    .col-md-12
+      .form-group
+        = f.submit 'Сохранить', class: 'btn btn-primary'

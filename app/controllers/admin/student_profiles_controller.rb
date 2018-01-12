@@ -30,8 +30,14 @@ module Admin
     def destroy
       @user = User.find(params[:user_id])
       @student_profile = StudentProfile.find_by(id: params[:id], user_id: @user.id)
-      @student_profile.destroy
-      redirect_to admin_user_path(@user)
+      if @user.study_group
+        flash[:error] = "Ученик привязан к #{@user.study_group.full_title} классу. Сначала уберите ученика из класса."
+        redirect_to admin_user_path(@user)
+      else
+        @student_profile.destroy
+        flash[:success] = 'Пользователь больше не является учеником'
+        redirect_to admin_user_path(@user)
+      end
     end
 
     def student_profile_params

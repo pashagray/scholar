@@ -1,0 +1,39 @@
+- breadcrumb :admin_study_group, @study_group
+- header(@study_group.full_title)
+.row
+  .col-md-4
+    = link_to edit_admin_study_group_path(@study_group), class: 'btn btn-primary float-right' do
+      = fa_icon('pencil')
+    h3 Детали класса
+    = data_set(@study_group, :level, :string)
+    = data_set(@study_group, :title, :string)
+    = data_set(@study_group, :students_count, :string)
+  .col-md-4
+    = react_component('AssignUserToStudyGroup', { study_group_id: @study_group.id, users: User.students_without_study_group.alphabetical_order })
+    h3 Ученики
+    - if @study_group.students.any?
+      - @study_group.students.alphabetical_order.each do |u|
+        .user-in-list
+          .user-avatar-in-list
+            = image_tag(u.avatar.thumb)
+          = u.full_name
+          p
+            small = link_to 'Перейти', admin_user_path(u)
+            small< |
+            small< = link_to 'Убрать из класса', remove_student_admin_study_group_path(@study_group, user_id: u.id), method: :post, data: {confirm: 'Вы уверены?' }
+    - else
+      br
+      .alert.alert-warning.text-center
+        h2 = fa_icon('coffee')
+        p В этом классе некого учить. Преподаватели могут расслабиться за чашечкой кофе.
+
+
+  .col-md-4
+    = link_to edit_admin_study_group_path(@study_group), class: 'btn btn-primary float-right' do
+      = fa_icon('plus')
+    h3 Классное руководство
+    br
+    .alert.alert-warning.text-center
+      h2 = fa_icon('bomb')
+      p В этом классе нет руководителя. Следует назначить во избежание начала анархии.
+

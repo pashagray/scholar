@@ -5,12 +5,14 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get '/', to: 'welcome#index'
+    resources :settings
     resources :users do
       collection do
         get 'students'
         get 'teachers'
         get 'custodians'
         get 'admins'
+        get 'my_settings'
       end
       member do
         post 'reset_password'
@@ -19,6 +21,12 @@ Rails.application.routes.draw do
       resources :teacher_profiles
       resources :custodian_profiles
       resources :admin_profiles
+    end
+    resources :study_groups do
+      member do
+        post 'assign_student'
+        post 'remove_student'
+      end
     end
   end
 

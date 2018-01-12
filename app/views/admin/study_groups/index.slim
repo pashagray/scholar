@@ -1,0 +1,4 @@
+- breadcrumb :admin_study_groups
+- header('Классы')
+- links([['Добавить учебный класс', new_admin_study_group_path]])
+= configurable_table(collection: @study_groups, table_handler: @table_handler, q: @q)

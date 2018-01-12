@@ -23,5 +23,9 @@ module FormHelper
     def date(f, field, errors)
       f.text_field(field, class: "form-control datepicker #{'is-invalid' if errors.any? && errors.include?(field.to_sym)}")
     end
+
+    def file(f, field, errors)
+      f.file_field(field, class: "form-control #{'is-invalid' if errors.any? && errors.include?(field.to_sym)}")
+    end
   end
 end

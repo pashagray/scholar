@@ -4,6 +4,8 @@ class User < ApplicationRecord
 
   include Delegatable
 
+  mount_uploader :avatar, AvatarUploader
+
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
 
   validates :iin, :last_name, :first_name, presence: true
@@ -13,10 +15,33 @@ class User < ApplicationRecord
   has_one :custodian_profile
   has_one :admin_profile
 
+  has_one :study_group_student
+  has_one :study_group, through: :study_group_student
+
   scope :students,   -> { joins(:student_profile) }
   scope :teachers,   -> { joins(:teacher_profile) }
   scope :custodians, -> { joins(:custodian_profile) }
   scope :admins,     -> { joins(:admin_profile) }
+
+  scope :students_without_study_group, -> { 
+    students
+    .joins('LEFT OUTER JOIN study_group_students ON (users.id = study_group_students.user_id)')
+    .where('study_group_students.user_id IS NULL') 
+  }
+
+  scope :alphabetical_order, -> { order(:last_name, :first_name, :middle_name) }
+
+  def student?
+    !!student_profile
+  end
+
+  def teacher?
+    !!teacher_profile
+  end
+
+  def custodian?
+    !!custodian_profile
+  end
 
   def admin?
     !!admin_profile

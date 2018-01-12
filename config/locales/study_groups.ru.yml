@@ -1,0 +1,11 @@
+ru:
+  activerecord:
+    models:
+      study_group: "Учебный класс"
+    attributes:
+      study_group:
+        level: "Уровень"
+        title: "Наименование"
+        full_title: "Полное наименование"
+        students_count: "Кол-во учеников"
+

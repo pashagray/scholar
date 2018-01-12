@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180111072850) do
+ActiveRecord::Schema.define(version: 20180111212519) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,16 @@ ActiveRecord::Schema.define(version: 20180111072850) do
     t.index ["user_id"], name: "index_custodian_profiles_on_user_id"
   end
 
+  create_table "settings", force: :cascade do |t|
+    t.string "var", null: false
+    t.text "value"
+    t.integer "thing_id"
+    t.string "thing_type", limit: 30
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true
+  end
+
   create_table "student_profiles", force: :cascade do |t|
     t.integer "user_id"
     t.date "date_of_admission"
@@ -38,6 +48,23 @@ ActiveRecord::Schema.define(version: 20180111072850) do
     t.index ["date_of_admission"], name: "index_student_profiles_on_date_of_admission"
     t.index ["deleted_at"], name: "index_student_profiles_on_deleted_at"
     t.index ["user_id"], name: "index_student_profiles_on_user_id"
+  end
+
+  create_table "study_group_students", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "study_group_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["study_group_id"], name: "index_study_group_students_on_study_group_id"
+    t.index ["user_id"], name: "index_study_group_students_on_user_id", unique: true
+  end
+
+  create_table "study_groups", force: :cascade do |t|
+    t.string "title"
+    t.string "level"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["title", "level"], name: "index_study_groups_on_title_and_level", unique: true
   end
 
   create_table "teacher_profiles", force: :cascade do |t|
@@ -74,6 +101,7 @@ ActiveRecord::Schema.define(version: 20180111072850) do
     t.date "date_of_birth"
     t.string "gender"
     t.string "temp_password"
+    t.string "avatar"
     t.index ["date_of_birth"], name: "index_users_on_date_of_birth"
     t.index ["email"], name: "index_users_on_email"
     t.index ["gender"], name: "index_users_on_gender"

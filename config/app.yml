@@ -1,0 +1,16 @@
+defaults: &defaults
+  school_title_short: 'Hogwarts'
+  school_title_full: 'Hogwarts School of Witchcraft and Wizardry'
+  grading_system: 'five_point'
+  available_grading_systems: ['five_point', 'five_point_extra', 'ten_point', 'kid']
+  fraction_grading_formula: 'AVG(all_marks)'
+  period_grading_formula: 'AVG(all_fraction_marks)'
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

@@ -17,4 +17,7 @@
 //= require bootstrap
 //= require moment
 //= require daterangepicker
+//= require react
+//= require react_ujs
+//= require components
 //= require_tree .

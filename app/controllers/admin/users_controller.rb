@@ -32,7 +32,13 @@ module Admin
 
     def create
       password = generate_password
-      @user = User.new(user_params.merge(password: password, temp_password: password))
+      @user = User.new(
+        user_params.merge(
+          password: password, 
+          temp_password: password,
+          remote_avatar_url: "http://api.adorable.io/avatar/200/#{(0...8).map { (65 + rand(26)).chr }.join}"
+        )
+      )
       if @user.save
         redirect_to admin_user_path(@user)
       else
@@ -67,7 +73,7 @@ module Admin
     private
 
     def generate_password
-      8.times.map { rand(0..9) }.join('')
+      4.times.map { rand(0..9) }.join('')
     end
 
     def user_params

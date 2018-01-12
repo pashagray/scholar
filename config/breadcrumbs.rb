@@ -2,6 +2,11 @@ crumb :admin do
   link 'Главная', admin_path
 end
 
+crumb :admin_settings do
+  link 'Настройки', admin_settings_path
+  parent :admin
+end
+
 crumb :admin_users do
   link 'Пользователи', admin_users_path
   parent :admin
@@ -27,6 +32,11 @@ crumb :admin_users_admins do
   parent :admin_users
 end
 
+crumb :new_admin_user do
+  link 'Добавить пользователя', new_admin_user_path
+  parent :admin_users
+end
+
 crumb :admin_user do |user|
   link user.full_name, admin_user_path(user)
   parent :admin_users
@@ -46,6 +56,27 @@ crumb :admin_user_teacher_profile_edit do |user, teacher_profile|
   link 'Редактировать анкету учителя', edit_admin_user_teacher_profile_path(id: teacher_profile.id, user_id: user.id)
   parent :admin_user, user
 end
+
+crumb :admin_study_groups do
+  link 'Классы', admin_study_groups_path
+  parent :admin
+end
+
+crumb :new_admin_study_group do
+  link 'Добавить класс', new_admin_study_group_path
+  parent :admin_study_groups
+end
+
+crumb :admin_study_group do |sg|
+  link sg.full_title, admin_study_group_path(sg)
+  parent :admin_study_groups
+end
+
+crumb :edit_admin_study_group do |sg|
+  link 'Редактировать класс', edit_admin_study_group_path(sg)
+  parent :admin_study_group, sg
+end
+
 
 # crumb :projects do
 #   link "Projects", projects_path

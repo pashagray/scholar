@@ -12,4 +12,5 @@ html
       = yield :links
       h1 = yield :header
       = raw(breadcrumbs(style: :bootstrap4))
+      = render('admin/shared/flash')
       = yield

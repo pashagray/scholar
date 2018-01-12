@@ -1,0 +1,10 @@
+- users.alphabetical_order.each do |u|
+  .user-in-list
+    .user-avatar-in-list
+      = image_tag('')
+    = u.full_name
+    p
+      - actions.each_with_index do |action, idx|
+        - if idx > 0
+          small< |
+        small = action

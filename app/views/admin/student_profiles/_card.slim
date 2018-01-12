@@ -1,10 +1,12 @@
-- if user.student_profile
+- if user.student?
   .card.bg-light.mb-3
     .card-header Является учеником
     .card-body
       p.card-text Этот пользователь является учеником и может быть привязан к учебным классам.
       p.card-text
         = link_to 'Убрать роль ученика', admin_user_student_profile_path(user.student_profile, user_id: user.id), method: 'DELETE', class: 'btn btn-block btn-outline-danger'
+      - if user.study_group
+        = link_to "Учится в #{user.study_group.full_title} классе", admin_study_group_path(user.study_group), class: 'btn btn-block btn-outline-success' 
 - else
   .card.bg-light.mb-3
     .card-header Не является учеником

@@ -25,6 +25,11 @@ gem 'gretel', github: '44uk/gretel', branch: 'support-bootstrap4-alpha'
 gem 'font-awesome-rails'
 gem 'paranoia', '~> 2.2'
 gem 'ransack', github: 'activerecord-hackery/ransack'
+gem 'rails-settings-cached'
+gem 'dry-transaction'
+gem 'mini_magick'
+gem 'carrierwave', '~> 1.0'
+gem 'react-rails'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

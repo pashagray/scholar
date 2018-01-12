@@ -3,6 +3,7 @@ module TableHelper
     klass = collection.klass
     path = self.controller_path.split('/')
     namespace = path.second ? path.first : nil
+    collection.any? ?
     content_tag(:table, class: 'table') do
       [
         content_tag(:tr) do
@@ -28,7 +29,7 @@ module TableHelper
           end
         end
       ].join('').html_safe
-    end
+    end : content_tag(:div, class: 'text-center') {content_tag(:h4) { 'Записей не найдено' } }
   end
 end
 
