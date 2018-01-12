@@ -12,6 +12,36 @@ class AssignUserToStudyGroup extends React.Component {
     this.setState({query: e.target.value});
   }
 
+  renderUsers() {
+    return(
+      <div>
+        <div className="text-center">
+          <p>
+            <b>Ученики без класса</b>
+          </p>
+        </div>
+        {this.props.users.map(user => 
+          <UserInList 
+            key={user.id}
+            user={user}
+            href={`/admin/study_groups/${this.props.study_group_id}/assign_student?user_id=${user.id}`}
+          />) 
+        }
+      </div>
+    ) 
+  }
+
+  renderNothing() {
+    return(
+      <div className="alert alert-warning text-center" style={{ marginBottom: 0 }}>
+        <h2>
+          <i className="fa fa-child" />
+        </h2>
+        <p>Некого добавлять. Все ученики распределены по классам и готовы грызть гранит науки!</p>
+      </div>
+    )
+  }
+
   render() {
     return(
       <div>
@@ -24,25 +54,7 @@ class AssignUserToStudyGroup extends React.Component {
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-body">
-                {/*<input
-                  id={this.inputId}
-                  className="form-control"
-                  value={this.state.query}
-                  onChange={this.handleInputChange}
-                />
-                <hr />*/}
-                <div className="text-center">
-                  <p>
-                    <b>Ученики без класса</b>
-                  </p>
-                </div>
-                {this.props.users.map(user => 
-                  <UserInList 
-                    key={user.id}
-                    user={user}
-                    href={`/admin/study_groups/${this.props.study_group_id}/assign_student?user_id=${user.id}`}
-                  />) 
-                }
+                {this.props.users.length > 0 ? this.renderUsers() : this.renderNothing()}
               </div>
             </div>
           </div>

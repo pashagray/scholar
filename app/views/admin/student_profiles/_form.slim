@@ -6,3 +6,5 @@
     .col-md-12
       .form-group
         = f.submit 'Сохранить', class: 'btn btn-primary'
+        | &nbsp;
+        = link_to 'Отмена', :back, class: 'btn btn-secondary'
