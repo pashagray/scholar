@@ -53,3 +53,59 @@
     }
   }  
 }
+
+.study-group-in-list {
+  .study-group-avatar-in-list {
+    background-color: black;
+    width: 48px;
+    height: 48px;
+    border-radius: 50px;
+    float: left;
+    margin-right: 10px;
+
+    img {
+      width: 48px;
+      height: 48px;
+      border-radius: 100px;
+    }
+  }  
+}
+
+.advert {
+  padding: 1.5rem;
+  border-radius: 0.25rem;
+  border: 2px solid #e9ecef;
+  margin: 1.5rem 0;
+}
+
+.advert-aside {
+  background-color: #e9ecef;
+  padding: 0.5rem 1.5rem;
+  margin: 0 -1.5rem -1.5rem;
+  border-radius-bottom: 0.25rem;
+  font-size: 80%;
+}
+
+.advert-aside-author-avatar {
+  height: 24px;
+  width: 24px;
+  border-radius: 12px;
+  float: left;
+  margin-right: 0.5rem;
+  margin-top: -2px;
+
+  img {
+    height: 24px;
+    width: 24px;
+    border-radius: 12px;
+  }
+}
+
+.advert-actions {
+  display: none;
+  margin: -1rem -0.7rem;
+}
+
+.advert:hover .advert-actions {
+  display: block;
+}

@@ -16,6 +16,7 @@
 //= require popper
 //= require bootstrap
 //= require moment
+//= require moment/ru.js
 //= require daterangepicker
 //= require react
 //= require react_ujs

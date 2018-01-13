@@ -1,0 +1,4 @@
+- breadcrumb :admin_subjects
+- header('Предметы')
+- links([['Добавить предмет', new_admin_subject_path]])
+= configurable_table(collection: @subjects, table_handler: @table_handler, q: @q)

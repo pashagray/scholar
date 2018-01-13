@@ -7,6 +7,21 @@ crumb :admin_settings do
   parent :admin
 end
 
+crumb :admin_subjects do
+  link 'Предметы', admin_subjects_path
+  parent :admin
+end
+
+crumb :new_admin_subject do
+  link 'Добавить предмет', new_admin_subject_path
+  parent :admin_subjects
+end
+
+crumb :admin_subject do |subject|
+  link subject.title, admin_subject_path(subject)
+  parent :admin_subjects
+end
+
 crumb :admin_users do
   link 'Пользователи', admin_users_path
   parent :admin

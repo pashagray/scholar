@@ -16,6 +16,10 @@ module FormHelper
       f.text_field(field, class: "form-control #{'is-invalid' if errors.any? && errors.include?(field.to_sym)}")
     end
 
+    def text(f, field, errors)
+      f.text_area(field, class: "form-control #{'is-invalid' if errors.any? && errors.include?(field.to_sym)}")
+    end
+
     def integer(f, field, errors)
       f.number_field(field, class: "form-control #{'is-invalid' if errors.any? && errors.include?(field.to_sym)}")
     end

@@ -1,0 +1,8 @@
+ru:
+  activerecord:
+    models:
+      advert: "Объявление"
+    attributes:
+      advert:
+        title: "Заголовок"
+        content: "Текст объявления"

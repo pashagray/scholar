@@ -1,0 +1,7 @@
+ru:
+  activerecord:
+    models:
+      subject: "Предмет"
+    attributes:
+      subject:
+        title: "Наименование"

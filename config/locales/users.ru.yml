@@ -3,6 +3,11 @@ ru:
     GENDERS:
       male: "Мужской"
       female: "Женский"
+  student:
+    zero: "Нет учеников"
+    one: "%{count} ученик"
+    few: "%{count} ученика"
+    other: "%{count} учеников"
   activerecord:
     models:
       user: "Пользователь"

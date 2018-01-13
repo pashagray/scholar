@@ -11,14 +11,14 @@
         small< |
         small<
           a href="#" Войти как ученик
-      - if current_user.teacher?
-        small< |
-        small<
-          = link_to 'Войти как учитель', teacher_path
       - if current_user.custodian?
         small< |
         small<
           a href="#" Войти как родитель
+      - if current_user.admin?
+        small< |
+        small<
+          = link_to 'Войти как администратор', admin_path
 
 nav.navbar.navbar-expand-md.navbar-dark.bg-dark
   .container
@@ -28,12 +28,11 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark
     #navbarNavDropdown.collapse.navbar-collapse
       ul.navbar-nav
         li.nav-item
-          = active_link_to 'Главная', admin_path, class: 'nav-link', active: :exact
+          = active_link_to 'Главная', teacher_path, class: 'nav-link', active: :exact
         li.nav-item
-          = active_link_to 'Настройки', admin_settings_path, class: 'nav-link'
+          = active_link_to 'Мои классы', supervising_teacher_study_groups_path, class: 'nav-link'
         li.nav-item
-          = active_link_to 'Предметы', admin_subjects_path, class: 'nav-link'
+          = active_link_to 'Мои уроки', supervising_teacher_study_groups_path, class: 'nav-link'
         li.nav-item
-          = active_link_to 'Пользователи', admin_users_path, class: 'nav-link'
-        li.nav-item
-          = active_link_to 'Классы', admin_study_groups_path, class: 'nav-link'
+          = active_link_to 'Учительская', supervising_teacher_study_groups_path, class: 'nav-link'
+

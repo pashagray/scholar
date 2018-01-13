@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   namespace :admin do
     get '/', to: 'welcome#index'
     resources :settings
+    resources :subjects
     resources :users do
       collection do
         get 'students'
@@ -35,6 +36,13 @@ Rails.application.routes.draw do
 
   namespace :teacher do
     get '/', to: 'welcome#index'
+    resources :study_groups do
+      collection do
+        get 'supervising'
+      end
+      resources :adverts
+    end
+    resources :users
   end
 
   namespace :student do

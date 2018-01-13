@@ -1,1 +1,14 @@
-h1 Hello
+- breadcrumb :teacher
+- header('Страница учителя')
+.row
+  .col-md-4
+    - if current_user.supervising_study_groups
+      h3 Мои классы
+      - current_user.supervising_study_groups.order_by_model.each do |sg|
+        .study-group-in-list
+          .study-group-avatar-in-list
+            = image_tag(sg.avatar.thumb)
+          - students_count = t('student', count: sg.students_count)
+          = "#{sg.full_title} (#{students_count})"
+          p
+            small = link_to 'Перейти', teacher_study_group_path(sg)

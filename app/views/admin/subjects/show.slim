@@ -1,0 +1,9 @@
+- breadcrumb :admin_subject, @subject
+- header(@subject.title)
+
+.row
+  .col-md-4
+    = link_to edit_admin_subject_path(@subject), class: 'btn btn-primary float-right' do
+      = fa_icon('pencil')
+    h3 Информация о предмете
+    = data_set(@subject, :title, :string)

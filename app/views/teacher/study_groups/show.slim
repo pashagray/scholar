@@ -1,0 +1,70 @@
+- breadcrumb :teacher_study_group, @study_group
+- header(@study_group.full_title)
+- links([['Журнал оценок', 'teacher_path'], ['Адресная книга', 'teacher_path']])
+
+.row
+  .col-md-8
+    a.btn.btn-primary.float-right href='#' data-toggle='modal' data-target='#new-advert-modal'
+      = fa_icon('plus')
+      span< Добавить объявление
+
+    .modal.fade id="new-advert-modal" tabindex="-1" role="dialog" aria-labelledby="new-advert-modal-label" aria-hidden="true"
+      .modal-dialog role="document" 
+        .modal-content
+          .modal-body
+            = form_for [:teacher, @study_group, @study_group.adverts.new] do |f|
+              = f.hidden_field(:advertable_type, value: 'StudyGroup')
+              = f.hidden_field(:advertable_id, value: @study_group.id)
+              = form_field(f, :title, :string)
+              = form_field(f, :content, :text)
+              .form-group
+                = f.submit 'Добавить', class: 'btn btn-primary'
+
+    h3 Новости и объявления
+    - if @adverts.any?
+      - @adverts.each do |ad|
+        .advert
+          .advert-actions.pull-right
+            = link_to teacher_study_group_advert_path(ad, study_group_id: @study_group.id), method: :delete
+              = fa_icon('trash-o')
+          h5 = ad.title
+          = text_to_html(ad.content)
+          .advert-aside
+            .pull-right
+              span.time-ago data-val="#{ad.created_at}" = ad.created_at
+            .advert-aside-author
+              .advert-aside-author-avatar
+                = image_tag(ad.author.avatar.thumb.url)
+              = ad.author.full_name
+    - else
+      br
+      .alert.alert-warning.text-center
+        h2 = fa_icon('feed')
+        - sup_names = @study_group.supervisors.map { |sv| Petrovich(firstname: sv.first_name, lastname: sv.last_name, middlename: sv.middle_name, gender: sv.gender).to(:genitive).to_s }.map { |sv| "<b>#{sv}</b>" }.join(' и ').html_safe
+        p Новостей и объявлений нет. Но надеемся, что писательские таланты #{sup_names} скоро проявятся!
+
+  .col-md-4
+    h3 Классное руководство
+    - @study_group.supervisors.alphabetical_order.each do |u|
+      .user-in-list
+        .user-avatar-in-list
+          = image_tag(u.avatar.thumb)
+        = u.full_name
+        p
+          small = link_to 'Перейти', admin_user_path(u)
+
+    h3 Ученики
+    - if @study_group.students.any?
+      - @study_group.students.alphabetical_order.each do |u|
+        .user-in-list
+          .user-avatar-in-list
+            = image_tag(u.avatar.thumb)
+          = u.full_name
+          p
+            small = link_to 'Перейти', teacher_user_path(u)
+    - else
+      br
+      .alert.alert-warning.text-center
+        h2 = fa_icon('coffee')
+        p В этом классе еще нет ни одного ученика. Можете отдохнуть за чашечкой кофе.
+

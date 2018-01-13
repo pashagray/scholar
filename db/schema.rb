@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180112094059) do
+ActiveRecord::Schema.define(version: 20180113044141) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,22 @@ ActiveRecord::Schema.define(version: 20180112094059) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_admin_profiles_on_user_id"
+  end
+
+  create_table "adverts", force: :cascade do |t|
+    t.string "advertable_type"
+    t.integer "advertable_id"
+    t.string "title"
+    t.text "content"
+    t.integer "author_id"
+    t.boolean "pinned"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["advertable_id"], name: "index_adverts_on_advertable_id"
+    t.index ["advertable_type", "advertable_id"], name: "index_adverts_on_advertable_type_and_advertable_id"
+    t.index ["advertable_type"], name: "index_adverts_on_advertable_type"
+    t.index ["author_id"], name: "index_adverts_on_author_id"
+    t.index ["pinned"], name: "index_adverts_on_pinned"
   end
 
   create_table "custodian_profiles", force: :cascade do |t|
@@ -72,7 +88,15 @@ ActiveRecord::Schema.define(version: 20180112094059) do
     t.string "level"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "avatar"
     t.index ["title", "level"], name: "index_study_groups_on_title_and_level", unique: true
+  end
+
+  create_table "subjects", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["title"], name: "index_subjects_on_title", unique: true
   end
 
   create_table "teacher_profiles", force: :cascade do |t|
