@@ -1,0 +1,3 @@
+development:
+  min_infix_len: 2
+  expand_keywords: true
