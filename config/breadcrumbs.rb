@@ -22,6 +22,12 @@ crumb :admin_subject do |subject|
   parent :admin_subjects
 end
 
+crumb :edit_admin_subject do |subject|
+  link 'Редактировать предмет', edit_admin_subject_path(subject)
+  parent :admin_subject, subject
+end
+
+
 crumb :admin_users do
   link 'Пользователи', admin_users_path
   parent :admin
