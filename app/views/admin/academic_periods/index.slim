@@ -1,0 +1,4 @@
+- breadcrumb :admin_academic_periods
+- header('Календарный план')
+- links([['Добавить учебный год', new_admin_academic_period_path]])
+= configurable_table(collection: @academic_periods, table_handler: @table_handler, q: @q)

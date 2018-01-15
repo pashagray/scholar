@@ -7,6 +7,9 @@ Rails.application.routes.draw do
     get '/', to: 'welcome#index'
     resources :settings
     resources :subjects
+    resources :academic_periods do
+      resources :academic_fractions
+    end
     resources :users do
       collection do
         get 'students'

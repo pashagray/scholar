@@ -1,0 +1,8 @@
+ru:
+  activerecord:
+    models:
+      academic_period: "Учебный год"
+    attributes:
+      academic_period:
+        title: "Наименование"
+        created_at: "Время создания"

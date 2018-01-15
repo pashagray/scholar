@@ -27,6 +27,25 @@ crumb :edit_admin_subject do |subject|
   parent :admin_subject, subject
 end
 
+crumb :admin_academic_periods do
+  link 'Календарный план', admin_academic_periods_path
+  parent :admin
+end
+
+crumb :new_admin_academic_period do
+  link 'Добавить учебный год', new_admin_academic_period_path
+  parent :admin_academic_periods
+end
+
+crumb :admin_academic_period do |ap|
+  link ap.title, admin_academic_period_path(ap)
+  parent :admin_academic_periods
+end
+
+crumb :edit_admin_academic_period do |ap|
+  link 'Редактировать период', edit_admin_academic_period_path(ap)
+  parent :admin_academic_period, ap
+end
 
 crumb :admin_users do
   link 'Пользователи', admin_users_path

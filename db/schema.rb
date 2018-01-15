@@ -10,10 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180113044141) do
+ActiveRecord::Schema.define(version: 20180115021437) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "academic_fractions", force: :cascade do |t|
+    t.string "title"
+    t.date "starts_on"
+    t.date "ends_on"
+    t.integer "academic_period_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "academic_periods", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "admin_profiles", force: :cascade do |t|
     t.integer "user_id"
