@@ -1,0 +1,12 @@
+= form_for [:admin, academic_fraction.academic_period, academic_fraction] do |f|
+  .row
+    .col-md-6
+      = form_field(f, :title, :string)
+      = form_field(f, :starts_on, :date)
+      = form_field(f, :ends_on, :date)
+  .row
+    .col-md-12
+      .form-group
+        = f.submit 'Сохранить', class: 'btn btn-primary'
+        | &nbsp;
+        = link_to 'Отмена', :back, class: 'btn btn-secondary'

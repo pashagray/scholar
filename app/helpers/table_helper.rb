@@ -1,5 +1,5 @@
 module TableHelper
-  def configurable_table(collection:, table_handler:, q: nil)
+  def configurable_table(collection:, table_handler:, q: nil, nested_in: nil)
     klass = collection.klass
     path = self.controller_path.split('/')
     namespace = path.second ? path.first : nil
@@ -21,8 +21,8 @@ module TableHelper
               end
             end.concat([content_tag(:td, class: 'text-center', style: 'width: 100px;') do 
               [
-                link_to([namespace.to_sym, resourse], class: 'btn btn-sm btn-secondary') { fa_icon('eye') },
-                link_to([:edit, namespace.to_sym, resourse], class: 'btn btn-sm btn-secondary') { fa_icon('pencil') } 
+                link_to([namespace.to_sym, nested_in, resourse].compact, class: 'btn btn-sm btn-secondary') { fa_icon('eye') },
+                link_to([:edit, namespace.to_sym, nested_in, resourse].compact, class: 'btn btn-sm btn-secondary') { fa_icon('pencil') } 
               ].join(' ').html_safe
             end])
             .join('').html_safe

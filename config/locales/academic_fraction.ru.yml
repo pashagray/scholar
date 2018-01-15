@@ -1,0 +1,10 @@
+ru:
+  activerecord:
+    models:
+      academic_fraction: "Четверть"
+    attributes:
+      academic_fraction:
+        title: "Наименование"
+        starts_on: "Начало четверти"
+        ends_on: "Конец четверти"
+        created_at: "Время создания"

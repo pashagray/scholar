@@ -47,6 +47,21 @@ crumb :edit_admin_academic_period do |ap|
   parent :admin_academic_period, ap
 end
 
+crumb :new_admin_academic_period_academic_fraction do |ap|
+  link 'Добавить четверть', new_admin_academic_period_academic_fraction_path(academic_period_id: ap.id)
+  parent :admin_academic_period, ap
+end
+
+crumb :admin_academic_period_academic_fraction do |ap, af|
+  link "Четверть #{af.title}", admin_academic_period_academic_fraction_path(af, academic_period_id: ap.id)
+  parent :admin_academic_period, ap
+end
+
+crumb :edit_admin_academic_period_academic_fraction do |ap, af|
+  link 'Редактировать четверть', edit_admin_academic_period_academic_fraction_path(af, academic_period_id: ap.id)
+  parent :admin_academic_period_academic_fraction, ap, af
+end
+
 crumb :admin_users do
   link 'Пользователи', admin_users_path
   parent :admin

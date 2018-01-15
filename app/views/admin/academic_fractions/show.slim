@@ -1,0 +1,11 @@
+- breadcrumb :admin_academic_period_academic_fraction, @academic_period, @academic_fraction
+- header("Четверть #{@academic_fraction.title}")
+
+.row
+  .col-md-4
+    = link_to edit_admin_academic_period_academic_fraction_path(@academic_fraction, academic_period_id: @academic_period), class: 'btn btn-primary float-right' do
+      = fa_icon('pencil')
+    h3 Информация о четверти
+    = data_set(@academic_fraction, :title, :string)
+    = data_set(@academic_fraction, :starts_on, :date)
+    = data_set(@academic_fraction, :ends_on, :date)

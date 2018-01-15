@@ -1,5 +1,6 @@
 - breadcrumb :admin_academic_period, @academic_period
 - header(@academic_period.title)
+- links([['Добавить четверть', new_admin_academic_period_academic_fraction_path(academic_period_id: @academic_period.id)]])
 
 .row
   .col-md-4
@@ -8,3 +9,5 @@
     h3 Информация об учебном периоде
     = data_set(@academic_period, :title, :string)
     = data_set(@academic_period, :created_at, :datetime)
+  .col-md-8
+    = configurable_table(collection: @academic_fractions, nested_in: @academic_period, table_handler: @table_handler, q: @q)
