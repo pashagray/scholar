@@ -1,0 +1,9 @@
+ru:
+  activerecord:
+    models:
+      study_sub_group: "Учебная группа"
+    attributes:
+      study_sub_group:
+        title: "Наименование"
+        students_count: "Кол-во учеников"
+        created_at: "Время создания"

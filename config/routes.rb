@@ -34,6 +34,12 @@ Rails.application.routes.draw do
         post 'assign_supervisor'
         post 'remove_supervisor'
       end
+      resources :study_sub_groups do
+        member do
+          post 'assign_student'
+          post 'remove_student'
+        end
+      end
     end
   end
 

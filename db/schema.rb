@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180115021437) do
+ActiveRecord::Schema.define(version: 20180115051005) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,6 +105,23 @@ ActiveRecord::Schema.define(version: 20180115021437) do
     t.datetime "updated_at", null: false
     t.string "avatar"
     t.index ["title", "level"], name: "index_study_groups_on_title_and_level", unique: true
+  end
+
+  create_table "study_sub_group_students", force: :cascade do |t|
+    t.integer "study_sub_group_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["study_sub_group_id"], name: "index_study_sub_group_students_on_study_sub_group_id"
+    t.index ["user_id", "study_sub_group_id"], name: "index_ssgs_on_user_id_and_study_sub_group_id", unique: true
+    t.index ["user_id"], name: "index_study_sub_group_students_on_user_id"
+  end
+
+  create_table "study_sub_groups", force: :cascade do |t|
+    t.integer "study_group_id"
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "subjects", force: :cascade do |t|

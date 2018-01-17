@@ -132,6 +132,15 @@ crumb :edit_admin_study_group do |sg|
   parent :admin_study_group, sg
 end
 
+crumb :new_admin_study_group_study_sub_group do |sg|
+  link 'Новая учебная группа', [:new, :admin, sg, :study_sub_group]
+  parent :admin_study_group, sg
+end
+
+crumb :admin_study_group_study_sub_group do |sg, ssg|
+  link ssg.title, [:edit, :admin, sg, :study_sub_group]
+  parent :admin_study_group, sg
+end
 
 # crumb :projects do
 #   link "Projects", projects_path

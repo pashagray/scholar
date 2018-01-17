@@ -1,0 +1,27 @@
+- breadcrumb :admin_study_group_study_sub_group, @study_group, @study_sub_group
+- header(@study_sub_group.title)
+.row
+  .col-md-4
+    = link_to [:edit, :admin, @study_sub_group.study_group, @study_sub_group], class: 'btn btn-primary float-right' do
+      = fa_icon('pencil')
+    h3 Детали учебной группы
+    = data_set(@study_sub_group, :title, :string)
+    = data_set(@study_sub_group, :students_count, :string)
+  .col-md-4
+    = react_component('AssignUserToStudySubGroup', { study_group_id: @study_group_id, study_sub_group_id: @study_sub_group.id, users: @study_group.students.alphabetical_order - @study_sub_group.students })
+    h3 Ученики
+    - if @study_sub_group.students.any?
+      - @study_sub_group.students.alphabetical_order.each do |u|
+        .user-in-list
+          .user-avatar-in-list
+            = image_tag(u.avatar.thumb)
+          = u.full_name
+          p
+            small = link_to 'Перейти', admin_user_path(u)
+            small< |
+            small< = link_to 'Убрать из группы', [:remove_student, :admin, @study_group, @study_sub_group, user_id: u.id], method: :post, data: {confirm: 'Вы уверены?' }
+    - else
+      br
+      .alert.alert-warning.text-center
+        h2 = fa_icon('coffee')
+        p В этой группе пока никого нет.

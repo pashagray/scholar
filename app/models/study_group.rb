@@ -8,6 +8,8 @@ class StudyGroup < ApplicationRecord
   has_many :study_group_supervisors
   has_many :supervisors, through: :study_group_supervisors, source: :user
 
+  has_many :study_sub_groups
+
   has_many :adverts, as: :advertable
 
   validates :title, uniqueness: { scope: :level }

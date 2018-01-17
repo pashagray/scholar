@@ -1,0 +1,10 @@
+= form_for [:admin, study_sub_group.study_group, study_sub_group] do |f|
+  .row
+    .col-md-6
+      = form_field(f, :title, :string)
+  .row
+    .col-md-12
+      .form-group
+        = f.submit 'Сохранить', class: 'btn btn-primary'
+        | &nbsp;
+        = link_to 'Отмена', :back, class: 'btn btn-secondary'

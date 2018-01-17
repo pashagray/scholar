@@ -8,6 +8,25 @@
     = data_set(@study_group, :level, :string)
     = data_set(@study_group, :title, :string)
     = data_set(@study_group, :students_count, :string)
+    br
+    = link_to [:new, :admin, @study_group, :study_sub_group], class: 'btn btn-primary float-right' do
+        = fa_icon('plus')
+    h3 Группы
+    - if @study_group.study_sub_groups.any?
+      - @study_group.study_sub_groups.each do |sub_group|
+        .data-set
+          b = sub_group.title
+          p
+            - students_count = t('student', count: sub_group.students_count)
+            small = students_count
+            small< | 
+            small = link_to 'Перейти', [:admin, @study_group, sub_group]
+    - else
+      br
+      .alert.alert-warning.text-center
+        h2 = fa_icon('group')
+        p В этом классе нет разделения на учебные группы. Добавьте, если по некоторым из предметов ученики делятся на группы.
+
   .col-md-4
     = react_component('AssignUserToStudyGroup', { study_group_id: @study_group.id, users: User.students_without_study_group.alphabetical_order })
     h3 Ученики
