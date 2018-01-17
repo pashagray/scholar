@@ -3,6 +3,11 @@ ru:
     GENDERS:
       male: "Мужской"
       female: "Женский"
+    roles:
+      student: "Ученик"
+      teacher: "Учитель"
+      custodian: "Родитель"
+      admin: "Администратор"
   student:
     zero: "Нет учеников"
     one: "%{count} ученик"

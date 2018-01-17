@@ -55,6 +55,11 @@ class User < ApplicationRecord
     !!admin_profile
   end
 
+  def roles
+    %i(student teacher custodian admin)
+    .map { |i| i if send("#{i}?".to_sym) }.compact
+  end
+
   def email_required?
     false
   end

@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { sessions: 'users/sessions' }
 
+  root to: 'welcome#index'
+
   post 'table_config', to: 'table_config#update'
+
+  namespace :multirole do
+    get '/', to: 'welcome#index'
+  end
 
   namespace :admin do
     get '/', to: 'welcome#index'
