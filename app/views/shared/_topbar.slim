@@ -1,0 +1,57 @@
+.current-user-bar
+  .container
+    .pull-right style="line-height: 2.8;"
+      .notification-bar
+        - if current_user.notifications.unopened_only.count > 0
+          = link_to my_notifications_path, style: 'color: #343a40;' do
+            = fa_icon('bell')
+            span.notifications-count<
+              = current_user.notifications.unopened_only.count
+        - else
+          = link_to my_notifications_path, style: 'color: #343a40;' do
+            = fa_icon('bell-o')
+    .avatar
+      = image_tag(current_user.avatar.thumb)
+    b = current_user.full_name
+    p
+      small = link_to('Моя страница', my_path)
+      small< |    
+      small = link_to('Выйти', destroy_user_session_path, method: :delete)
+
+nav.navbar.navbar-expand-md.navbar-dark.bg-dark
+  .container
+    a.navbar-brand href='/' = Setting.school_title_short
+    button.navbar-toggler aria-controls="navbarNavDropdown" aria-expanded="false" aria-label=("Toggle navigation") data-target="#navbarNavDropdown" data-toggle="collapse" type="button" 
+      span.navbar-toggler-icon
+    #navbarNavDropdown.collapse.navbar-collapse
+      ul.navbar-nav
+        - if current_user.teacher?
+          li.nav-item
+            = active_link_to 'Страница учителя', teacher_path, class: 'nav-link', active: :exact
+          - if current_user.supervising_study_groups.any?
+            li.nav-item
+              = active_link_to 'Мои классы', supervising_teacher_study_groups_path, class: 'nav-link'
+          li.nav-item
+            = active_link_to 'Мои уроки', supervising_teacher_study_groups_path, class: 'nav-link'
+          li.nav-item
+            = active_link_to 'Учительская', supervising_teacher_study_groups_path, class: 'nav-link'
+
+- if current_user.admin?
+  nav.navbar.navbar-expand-md.navbar-dark style="background-color: #5B5B5B;"
+    .container
+      = active_link_to admin_path, class: 'navbar-brand', active: :exact do
+        = fa_icon('star')
+      button.navbar-toggler aria-controls="navbarNavDropdown" aria-expanded="false" aria-label=("Toggle navigation") data-target="#navbarNavDropdown" data-toggle="collapse" type="button" 
+        span.navbar-toggler-icon
+      #navbarNavDropdown.collapse.navbar-collapse
+        ul.navbar-nav
+          li.nav-item
+            = active_link_to 'Настройки', admin_settings_path, class: 'nav-link'
+          li.nav-item
+            = active_link_to 'Предметы', admin_subjects_path, class: 'nav-link'
+          li.nav-item
+            = active_link_to 'Календарный план', admin_academic_periods_path, class: 'nav-link'
+          li.nav-item
+            = active_link_to 'Пользователи', admin_users_path, class: 'nav-link'
+          li.nav-item
+            = active_link_to 'Классы', admin_study_groups_path, class: 'nav-link'

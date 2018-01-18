@@ -1,8 +1,0 @@
-= form_for [:admin, current_user] do |f|
-  .row
-    .col-md-12
-      = form_field(f, :avatar, :file)
-  .row
-    .col-md-12
-      .form-group
-        = f.submit 'Сохранить', class: 'btn btn-primary'

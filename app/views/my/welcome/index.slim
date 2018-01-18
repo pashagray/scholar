@@ -1,0 +1,43 @@
+- header('Моя страница')
+- breadcrumb(:my)
+.row
+  .col-md-4
+    h3 Мои данные
+    = data_set(current_user, :iin, :string)
+    = data_set(current_user, :last_name, :string)
+    = data_set(current_user, :first_name, :string)
+    = data_set(current_user, :middle_name, :string)
+    = data_set(current_user, :date_of_birth, :date)
+  .col-md-4
+    - if current_user.student?
+      h3 Анкета ученика
+      - student_profile = current_user.student_profile
+      = data_set(student_profile, :created_at, :datetime)
+      = data_set(student_profile, :updated_at, :datetime)
+      = data_set(student_profile, :date_of_admission, :date)
+      br
+
+    - if current_user.teacher?
+      h3 Анкета учителя
+      - teacher_profile = current_user.teacher_profile
+      = data_set(teacher_profile, :created_at, :datetime)
+      = data_set(teacher_profile, :updated_at, :datetime)
+      = data_set(teacher_profile, :date_of_admission, :date)
+      = data_set(teacher_profile, :edu_work_experience, :string)
+      = data_set(teacher_profile, :total_work_experience, :string)
+      br
+  .col-md-4
+    - if current_user.admin?
+      .card.text-white.bg-warning.mb-3
+        .card-header
+          = fa_icon('star')
+          span< Администратор
+      br
+    = form_for [:my, current_user] do |f|
+      .row
+        .col-md-12
+          = form_field(f, :avatar, :file)
+      .row
+        .col-md-12
+          .form-group
+            = f.submit 'Сохранить', class: 'btn btn-primary'

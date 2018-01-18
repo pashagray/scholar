@@ -1,5 +1,5 @@
 crumb :admin do
-  link 'Главная', admin_path
+  link 'Администратор', admin_path
 end
 
 crumb :admin_settings do

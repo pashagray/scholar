@@ -8,6 +8,9 @@ Rails.application.routes.draw do
 
   namespace :my do
     get '/', to: 'welcome#index'
+
+    resources :users
+
     resources :notifications do
       member do
         patch 'mark_as_read'
@@ -32,7 +35,6 @@ Rails.application.routes.draw do
         get 'teachers'
         get 'custodians'
         get 'admins'
-        get 'my_settings'
       end
       member do
         post 'reset_password'
