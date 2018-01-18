@@ -29,8 +29,12 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark
           li.nav-item
             = active_link_to 'Страница учителя', teacher_path, class: 'nav-link', active: :exact
           - if current_user.supervising_study_groups.any?
-            li.nav-item
-              = active_link_to 'Мои классы', supervising_teacher_study_groups_path, class: 'nav-link'
+            - if current_user.supervising_study_groups.count > 1
+              li.nav-item
+                = active_link_to 'Мои классы', supervising_teacher_study_groups_path, class: 'nav-link'
+            - else
+              li.nav-item
+                = active_link_to 'Мой класс', teacher_study_group_path(current_user.supervising_study_groups.last), class: 'nav-link'
           li.nav-item
             = active_link_to 'Мои уроки', supervising_teacher_study_groups_path, class: 'nav-link'
           li.nav-item
