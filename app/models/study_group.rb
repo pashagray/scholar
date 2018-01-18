@@ -24,4 +24,8 @@ class StudyGroup < ApplicationRecord
   def students_count
     students.count
   end
+
+  def subscribers
+    students + supervisors
+  end
 end

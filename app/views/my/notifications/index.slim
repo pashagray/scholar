@@ -1,0 +1,42 @@
+- header('Уведомления')
+- breadcrumb(:my_notifications)
+.row
+  .col-md-8
+    - if params[:date]
+      h3 Архив уведомлений
+    - else
+      h3 Не прочитанные
+    - if @notifications.any?
+      - @notifications.order(created_at: :desc).each do |n|
+        .notification-item id="notification_#{n.id}"
+          hr
+          - unless n.opened?
+            .pull-right
+              = link_to 'Не прочитано', mark_as_read_my_notification_path(n), method: :patch, remote: true, class: 'btn btn-sm btn-outline-secondary mark-as-read'
+          = render(n.notifiable_type.downcase, notification: n)
+    - else
+      br
+      .alert.alert-warning.text-center
+        h2 = fa_icon('bell-o')
+        - if params[:date]
+          p Не найдено ни одного уведомления за указанный день.
+        - else
+          p Все уведомления прочитаны. При ностальгии по старым уведомлениям можно воспользоваться архивом.
+
+  .col-md-4
+    h3 Архив уведомлений
+    .list-group
+      = link_to 'Сегодня', [:my, :notifications, date: Date.today], class: "list-group-item list-group-item-action #{params[:date] && Date.parse(params[:date]) == Date.today ? 'active' : nil}"
+      = link_to 'Вчера', [:my, :notifications, date: Date.yesterday], class: "list-group-item list-group-item-action #{params[:date] && Date.parse(params[:date]) == Date.yesterday ? 'active' : nil}"
+    - if params[:date]
+      br
+      .list-group
+        = link_to 'Показать непрочитанные', [:my, :notifications], class: 'list-group-item list-group-item-action'
+      
+
+
+coffee:
+  $('.mark-as-read').on 'mouseover', (e) ->
+    $(this).html('Убрать из списка')
+  $('.mark-as-read').on 'mouseout', (e) ->
+    $(this).html('Не прочитано')

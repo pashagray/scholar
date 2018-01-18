@@ -1,9 +1,19 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { sessions: 'users/sessions' }
+  # notify_to :users, with_devise: :users
 
   root to: 'welcome#index'
 
   post 'table_config', to: 'table_config#update'
+
+  namespace :my do
+    get '/', to: 'welcome#index'
+    resources :notifications do
+      member do
+        patch 'mark_as_read'
+      end
+    end
+  end
 
   namespace :multirole do
     get '/', to: 'welcome#index'

@@ -8,6 +8,9 @@ class User < ApplicationRecord
 
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
 
+  # Notification system
+  acts_as_target
+
   validates :iin, :last_name, :first_name, presence: true
 
   has_one :student_profile
@@ -74,5 +77,9 @@ class User < ApplicationRecord
 
   def full_name
     "#{last_name} #{first_name} #{middle_name}".rstrip
+  end
+
+  def printable_notifier_name
+    full_name
   end
 end

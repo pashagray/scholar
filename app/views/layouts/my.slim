@@ -1,0 +1,16 @@
+doctype html
+html
+  head
+    title Scholar :: My
+    = csrf_meta_tags
+    
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  body
+    = render 'teacher/shared/topbar'
+    .container.app
+      = yield :links
+      h1 = yield :header
+      = raw(breadcrumbs(style: :bootstrap4, display_single_fragment: true))
+      = render('teacher/shared/flash')
+      = yield

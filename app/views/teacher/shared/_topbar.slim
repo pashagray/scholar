@@ -1,5 +1,15 @@
 .current-user-bar
   .container
+    .pull-right style="line-height: 2.8;"
+      .notification-bar
+        - if current_user.notifications.unopened_only.count > 0
+          = link_to my_notifications_path, style: 'color: #343a40;' do
+            = fa_icon('bell')
+            span.notifications-count<
+              = current_user.notifications.unopened_only.count
+        - else
+          = link_to my_notifications_path, style: 'color: #343a40;' do
+            = fa_icon('bell-o')
     .avatar
       = image_tag(current_user.avatar.thumb)
     b = current_user.full_name

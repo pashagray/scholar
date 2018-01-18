@@ -1,0 +1,16 @@
+- notifier = notification.notifier.full_name
+- notifiable = notification.notifiable
+- if notifiable
+  p = t("notification.#{notification.key}", advertable: notifiable.advertable.full_title)
+  .advert
+    h5 = notifiable.title
+    = text_to_html(notifiable.content)
+    .advert-aside
+      .pull-right
+        span.time-ago data-val="#{notifiable.created_at}" = notifiable.created_at
+      .advert-aside-author
+        .advert-aside-author-avatar
+          = image_tag(notifiable.author.avatar.thumb.url)
+        = notifiable.author.full_name
+- else
+  p = t("notification.deleted.#{notification.key}")

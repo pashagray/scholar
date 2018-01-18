@@ -7,6 +7,7 @@ module Teacher
       @advert = @advertable.adverts.new(advert_params)
       @advert.author = current_user
       if @advert.save
+        @advert.notify :users, key: 'advert.posted', notifier: current_user
         flash[:success] = 'Объявление успешно добавлено'
         redirect_to [:teacher, @advertable]
       else

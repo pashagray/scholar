@@ -1,0 +1,13 @@
+# Additional translations of ActivityNotification
+
+ru:
+  notification:
+    advert:
+      posted: "Опубликовано новое объявление в %{advertable}"
+    deleted:
+      advert:
+        posted: "Опубликовано новое объвление, но было удалено"
+    default:
+      your_notifiable:
+        default:
+          mail_subject:
