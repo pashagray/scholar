@@ -7,4 +7,6 @@ class StudySubGroup < ApplicationRecord
 
   has_many :study_sub_group_students
   has_many :students, through: :study_sub_group_students, source: :user
+
+  has_many :journals, as: :journable
 end

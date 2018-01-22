@@ -1,0 +1,12 @@
+ru:
+  activerecord:
+    models:
+      journal: "Журнал"
+    attributes:
+      journal:
+        subject_id: "Предмет"
+        teacher_id: "Преподаватель"
+        journable_type: "Включить в журнал"
+        grading_system: "Система оценок"
+        fraction_grading_formula: "Формула расчета четвертных/семестровых оценок"
+        period_grading_formula: "Формула расчета финальной оценки"

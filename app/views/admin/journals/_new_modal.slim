@@ -1,0 +1,50 @@
+button.btn.btn-primary data-target="#new-journal-modal" data-toggle="modal" type="button" 
+  = fa_icon('plus')
+/! Modal
+#new-journal-modal.modal.fade aria-hidden="true" aria-labelledby="new-journal-modal-title" role="dialog" tabindex="-1" 
+  .modal-dialog role="document" 
+    .modal-content
+      .modal-header
+        h5#new-journal-modal-title.modal-title Новый журнал
+        button.close aria-label="Close" data-dismiss="modal" type="button" 
+          span aria-hidden="true"  &times;
+      .modal-body
+        = form_for [:admin, journal] do |f|
+          = f.hidden_field :academic_period_id
+          .form-group
+            = f.label :subject_id
+            = f.select(:subject_id, select_subject, {}, class: 'form-control')
+          .form-group
+            = f.label :teacher_id
+            = f.select(:teacher_id, select_teacher, {}, class: 'form-control')
+          .form-group
+            = f.label :journable_type
+            = f.select(:journable_type, options_for_select([['Весь класс', 'StudyGroup'], ['Учебная группа', 'StudySubGroup']]), {}, class: 'form-control')
+            = f.hidden_field :journable_id
+            = hidden_field_tag :journal_study_group_id, study_group_id
+          .form-group.d-none#journal_study_sub_group_id_form_group
+            = label_tag :journal_study_sub_group_id
+            = select_tag(:journal_study_sub_group_id, options_for_select(StudyGroup.find(study_group_id).study_sub_groups.order(:title).pluck(:title, :id)), class: 'form-control')
+          .form-group
+            = f.label :grading_system
+            = f.select(:grading_system, select_grading_system, {}, class: 'form-control')
+          .form-group
+            = f.label :fraction_grading_formula
+            = f.text_field(:fraction_grading_formula, class: 'form-control')
+          .form-group
+            = f.label :period_grading_formula
+            = f.text_field(:period_grading_formula, class: 'form-control')
+          .form-group
+            = f.submit 'Сохранить', class: 'btn btn-success'
+
+coffee:
+  $('#journal_journable_type').on 'change', ->
+    if ($(this).val() == 'StudySubGroup')
+      $('#journal_study_sub_group_id_form_group').removeClass('d-none')
+      $('#journal_journable_id').val($('#journal_study_sub_group_id').val())
+    else
+      $('#journal_study_sub_group_id_form_group').addClass('d-none')
+      $('#journal_journable_id').val($('#journal_study_group_id').val())
+
+  $('#journal_study_sub_group_id').on 'change', ->
+    $('#journal_journable_id').val($('#journal_study_sub_group_id').val())

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180117094751) do
+ActiveRecord::Schema.define(version: 20180120020523) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,50 @@ ActiveRecord::Schema.define(version: 20180117094751) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_custodian_profiles_on_user_id"
+  end
+
+  create_table "journal_fractions", force: :cascade do |t|
+    t.integer "journal_id"
+    t.date "starts_on"
+    t.date "ends_on"
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ends_on"], name: "index_journal_fractions_on_ends_on"
+    t.index ["journal_id"], name: "index_journal_fractions_on_journal_id"
+    t.index ["starts_on"], name: "index_journal_fractions_on_starts_on"
+    t.index ["title"], name: "index_journal_fractions_on_title"
+  end
+
+  create_table "journals", force: :cascade do |t|
+    t.string "subject_id", null: false
+    t.string "journable_type", null: false
+    t.integer "journable_id", null: false
+    t.integer "teacher_id", null: false
+    t.integer "academic_period_id", null: false
+    t.boolean "published", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "fraction_grading_formula"
+    t.string "period_grading_formula"
+    t.string "grading_system"
+    t.index ["journable_id"], name: "index_journals_on_journable_id"
+    t.index ["journable_type", "journable_id"], name: "index_journals_on_journable_type_and_journable_id"
+    t.index ["journable_type"], name: "index_journals_on_journable_type"
+    t.index ["published"], name: "index_journals_on_published"
+    t.index ["subject_id"], name: "index_journals_on_subject_id"
+    t.index ["teacher_id"], name: "index_journals_on_teacher_id"
+  end
+
+  create_table "lessons", force: :cascade do |t|
+    t.date "day"
+    t.integer "starts_at"
+    t.integer "ends_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "journal_fraction_id"
+    t.index ["day"], name: "index_lessons_on_day"
+    t.index ["journal_fraction_id"], name: "index_lessons_on_journal_fraction_id"
   end
 
   create_table "notifications", id: :serial, force: :cascade do |t|

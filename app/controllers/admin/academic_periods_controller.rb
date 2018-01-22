@@ -21,7 +21,7 @@ module Admin
 
     def show
       @academic_period = AcademicPeriod.find(params[:id])
-      @academic_fractions = @academic_period.academic_fractions
+      @academic_fractions = @academic_period.academic_fractions.order(:title)
       @table_handler = TableHandler::AdminAcademicFractionsIndex.new(current_user.config)
     end
 

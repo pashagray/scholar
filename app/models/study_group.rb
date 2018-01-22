@@ -12,6 +12,8 @@ class StudyGroup < ApplicationRecord
 
   has_many :adverts, as: :advertable
 
+  has_many :journals, as: :journable
+
   validates :title, uniqueness: { scope: :level }
 
   scope :order_by_model, -> { StudyGroup.order_by_classic_model }

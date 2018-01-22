@@ -29,6 +29,13 @@ Rails.application.routes.draw do
     resources :academic_periods do
       resources :academic_fractions
     end
+
+    get 'schedule', to: 'journals#schedule'
+
+    resources :journals do
+      resources :journal_fractions
+    end
+
     resources :users do
       collection do
         get 'students'

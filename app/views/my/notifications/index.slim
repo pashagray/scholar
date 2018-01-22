@@ -15,7 +15,6 @@
               = link_to 'Не прочитано', mark_as_read_my_notification_path(n), method: :patch, remote: true, class: 'btn btn-sm btn-outline-secondary mark-as-read'
           = render(n.notifiable_type.downcase, notification: n)
     - else
-      br
       .alert.alert-warning.text-center
         h2 = fa_icon('bell-o')
         - if params[:date]

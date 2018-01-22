@@ -1,0 +1,3 @@
+.list-group
+  - fractions.sort_by { |elem| JournalFraction::FRACTIONS.index(elem.title) }.each do |fraction|
+    = link_to fraction.title, [:admin, fraction.journal, fraction], class: 'list-group-item list-group-item-action'

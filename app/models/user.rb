@@ -79,6 +79,10 @@ class User < ApplicationRecord
     "#{last_name} #{first_name} #{middle_name}".rstrip
   end
 
+  def short_name
+    "#{last_name} #{first_name[0]} #{middle_name ? middle_name[0] : ''}".rstrip
+  end
+
   def printable_notifier_name
     full_name
   end

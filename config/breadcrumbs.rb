@@ -7,6 +7,17 @@ crumb :admin_settings do
   parent :admin
 end
 
+crumb :admin_schedule_path do
+  link 'Расписание', admin_schedule_path
+  parent :admin
+end
+
+crumb :admin_journal do |journal|
+  link journal.title, admin_journal_path(journal)
+  parent :admin_schedule_path
+end
+
+
 crumb :admin_subjects do
   link 'Предметы', admin_subjects_path
   parent :admin

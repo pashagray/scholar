@@ -1,0 +1,8 @@
+ru:
+  common:
+    grading_systems:
+      five_point: "Пятибальная"
+      five_point_extra: "Пятибальная (с минусом и плюсом)" 
+      ten_point: "Десятибальная"
+      bool: "Зачет/Незачет"
+      kid: "Детская (символы)"
