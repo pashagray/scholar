@@ -1,6 +1,6 @@
 - breadcrumb :teacher_study_group, @study_group
 - header(@study_group.full_title)
-- links([['Журнал оценок', 'teacher_path'], ['Адресная книга', 'teacher_path']])
+- links([['Временные пароли', [:passwords, :teacher, @study_group]], ['Журнал оценок', 'teacher_path'], ['Адресная книга', 'teacher_path']])
 
 .row
   .col-md-8

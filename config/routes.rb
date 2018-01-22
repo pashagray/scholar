@@ -82,6 +82,9 @@ Rails.application.routes.draw do
       collection do
         get 'supervising'
       end
+      member do
+        get 'passwords'
+      end
       resources :adverts
     end
     resources :users

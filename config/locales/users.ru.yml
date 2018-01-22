@@ -26,6 +26,7 @@ ru:
         middle_name: "Отчество"
         date_of_birth: "Дата рождения"
         avatar: "Аватар (портрет)"
+        temp_password: "Временный пароль"
         # Student
         student_profile_created_at: "Время создания профайла ученика"
         student_profile_date_of_admission: "Дата приема в учебное заведение"
