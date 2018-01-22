@@ -40,6 +40,8 @@ module Admin
         )
       )
       if @user.save
+        ug = UserGroup.find_or_create_by(title: 'school')
+        UserInGroup.find_or_create_by(user_id: @user.id, user_group_id: ug.id)
         redirect_to admin_user_path(@user)
       else
         render :new

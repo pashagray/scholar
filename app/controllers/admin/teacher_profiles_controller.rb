@@ -9,6 +9,8 @@ module Admin
         @teacher_profile = TeacherProfile.new(user_id: @user.id)
         @teacher_profile.save
       end
+      ug = UserGroup.find_or_create_by(title: 'teachers_room')
+      UserInGroup.find_or_create_by(user_id: @user.id, user_group_id: ug.id)
       redirect_to admin_user_path(@user)
     end
 
@@ -31,6 +33,9 @@ module Admin
       @user = User.find(params[:user_id])
       @teacher_profile = TeacherProfile.find_by(id: params[:id], user_id: @user.id)
       @teacher_profile.destroy
+      ug = UserGroup.find_by(title: 'teachers_room')
+      uig = @user.user_in_groups.find_by(user_group_id: ug.id)
+      uig.destroy
       redirect_to admin_user_path(@user)
     end
 

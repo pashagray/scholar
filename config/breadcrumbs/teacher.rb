@@ -11,3 +11,8 @@ crumb :teacher_study_group do |sg|
   link sg.full_title, teacher_study_group_path(sg)
   parent :teacher_supervising_study_groups
 end
+
+crumb :teacher_teachers_room do |ug|
+  link ug.full_title, teacher_teachers_room_path
+  parent :teacher
+end

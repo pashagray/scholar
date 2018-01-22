@@ -1,0 +1,13 @@
+ru:
+  user_groups:
+    school: 'Моя школа'
+    teachers_room: 'Учительская'
+  activerecord:
+    models:
+      user_group: "Группа пользователей"
+    attributes:
+      user_group:
+        title: "Наименование"
+        full_title: "Наименование"
+        users_count: "Кол-во пользователей"
+

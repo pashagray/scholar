@@ -29,6 +29,9 @@ class User < ApplicationRecord
 
   has_many :adverts, as: :author
 
+  has_many :user_in_groups
+  has_many :user_groups, through: :user_in_groups
+
   scope :students,   -> { joins(:student_profile) }
   scope :teachers,   -> { joins(:teacher_profile) }
   scope :custodians, -> { joins(:custodian_profile) }

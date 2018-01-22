@@ -72,6 +72,12 @@ Rails.application.routes.draw do
 
   namespace :teacher do
     get '/', to: 'welcome#index'
+
+    get '/teachers_room', to: 'user_groups#teachers_room'
+    resources :user_groups do
+      resources :adverts
+    end
+
     resources :study_groups do
       collection do
         get 'supervising'

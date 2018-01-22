@@ -12,3 +12,27 @@
           = "#{sg.full_title} (#{students_count})"
           p
             small = link_to 'Перейти', teacher_study_group_path(sg)
+  .col-md-8
+    h3 Последние новости в учительской
+    - @adverts = UserGroup.teachers_room.adverts
+    - if @adverts.any?
+      - @adverts.each do |ad|
+        .advert
+          - if current_user.admin?
+            .advert-actions.pull-right
+              = link_to teacher_user_group_advert_path(ad, user_group_id: @user_group.id), method: :delete
+                = fa_icon('trash-o')
+          h5 = ad.title
+          = text_to_html(ad.content)
+          .advert-aside
+            .pull-right
+              span.time-ago data-val="#{ad.created_at}" = ad.created_at
+            .advert-aside-author
+              .advert-aside-author-avatar
+                = image_tag(ad.author.avatar.thumb.url)
+              = ad.author.full_name
+    - else
+      br
+      .alert.alert-warning.text-center
+        h2 = fa_icon('feed')
+        p Новостей и объявлений нет. Ожидайте публикаций от администратора.
