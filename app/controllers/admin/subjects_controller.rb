@@ -21,6 +21,8 @@ module Admin
 
     def show
       @subject = Subject.find(params[:id])
+      @journals = @subject.journals.order_by_default
+      @table_handler = TableHandler::AdminJournalsIndex.new(current_user.config)
     end
 
     def edit

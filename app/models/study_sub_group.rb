@@ -9,4 +9,8 @@ class StudySubGroup < ApplicationRecord
   has_many :students, through: :study_sub_group_students, source: :user
 
   has_many :journals, as: :journable
+
+  def full_title
+    title
+  end
 end

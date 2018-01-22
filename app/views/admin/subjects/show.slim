@@ -7,3 +7,10 @@
       = fa_icon('pencil')
     h3 Информация о предмете
     = data_set(@subject, :title, :string)
+  .col-md-8
+    h3 Журналы по указанному предмету
+    - if @journals.any?
+      = configurable_table(collection: @journals, table_handler: @table_handler)
+
+    - else
+      = alert_block(:warning, icon: 'book', text: 'По указанному предмету журналов не найдено')

@@ -10,3 +10,8 @@ ru:
         grading_system: "Система оценок"
         fraction_grading_formula: "Формула расчета четвертных/семестровых оценок"
         period_grading_formula: "Формула расчета финальной оценки"
+        # delegate
+        subject_title: "Предмет"
+        academic_period_title: "Академический период"
+        journable_full_title: "Класс/Группа"
+

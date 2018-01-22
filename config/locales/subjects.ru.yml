@@ -5,3 +5,4 @@ ru:
     attributes:
       subject:
         title: "Наименование"
+        created_at: "Время создания"

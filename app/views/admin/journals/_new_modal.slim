@@ -23,7 +23,7 @@ button.btn.btn-primary data-target="#new-journal-modal" data-toggle="modal" type
             = f.hidden_field :journable_id
             = hidden_field_tag :journal_study_group_id, study_group_id
           .form-group.d-none#journal_study_sub_group_id_form_group
-            = label_tag :journal_study_sub_group_id
+            = label_tag :journal_study_sub_group_id, 'Учебная группа'
             = select_tag(:journal_study_sub_group_id, options_for_select(StudyGroup.find(study_group_id).study_sub_groups.order(:title).pluck(:title, :id)), class: 'form-control')
           .form-group
             = f.label :grading_system
