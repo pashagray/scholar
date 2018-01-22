@@ -19,6 +19,7 @@ ru:
     attributes:
       user:
         iin: "ИИН"
+        password: "Пароль"
         gender: "Пол"
         last_name: "Фамилия"
         first_name: "Имя"
