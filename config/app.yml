@@ -10,6 +10,7 @@ defaults: &defaults
   aws_region: 'ams3'
   aws_fog_directory: 'your_bucket'
   aws_endpoint: 'https://ams3.digitaloceanspaces.com'
+  aws_folder_name: 'hogwards'
 
 development:
   <<: *defaults
