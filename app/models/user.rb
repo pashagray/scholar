@@ -28,6 +28,7 @@ class User < ApplicationRecord
   has_many :study_sub_groups, through: :study_sub_group_students, source: :study_sub_group
 
   has_many :adverts, as: :author
+  has_many :attachments, as: :attachmentable
 
   scope :students,   -> { joins(:student_profile) }
   scope :teachers,   -> { joins(:teacher_profile) }

@@ -5,6 +5,11 @@ defaults: &defaults
   available_grading_systems: ['five_point', 'five_point_extra', 'ten_point', 'kid']
   fraction_grading_formula: 'AVG(all_marks)'
   period_grading_formula: 'AVG(all_fraction_marks)'
+  aws_access_key_id: 'key_id'
+  aws_secret_access_key: 'access_key'
+  aws_region: 'ams3'
+  aws_fog_directory: 'your_bucket'
+  aws_endpoint: 'https://ams3.digitaloceanspaces.com'
 
 development:
   <<: *defaults
