@@ -7,16 +7,25 @@ crumb :admin_settings do
   parent :admin
 end
 
-crumb :admin_schedule_path do
+crumb :admin_schedule do
   link 'Расписание', admin_schedule_path
   parent :admin
 end
 
-crumb :admin_journal do |journal|
-  link journal.title, admin_journal_path(journal)
-  parent :admin_schedule_path
+crumb :admin_schedule_generator do
+  link 'Формирование расписания', admin_schedule_generator_path
+  parent :admin_schedule
 end
 
+crumb :admin_journal do |journal|
+  link journal.title, admin_journal_path(journal)
+  parent :admin_schedule
+end
+
+crumb :admin_journal_journal_fraction do |jf|
+  link I18n.t("journal_fractions.FRACTIONS.#{jf.title}"), [:admin, jf.journal, jf]
+  parent :admin_journal, jf.journal
+end
 
 crumb :admin_subjects do
   link 'Предметы', admin_subjects_path

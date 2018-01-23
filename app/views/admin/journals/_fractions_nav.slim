@@ -1,3 +1,3 @@
 .list-group
-  - fractions.sort_by { |elem| JournalFraction::FRACTIONS.index(elem.title) }.each do |fraction|
-    = link_to fraction.title, [:admin, fraction.journal, fraction], class: 'list-group-item list-group-item-action'
+  - fractions.sort_by { |elem| JournalFraction::FRACTIONS.index(elem.title) }.each do |jf|
+    = active_link_to t("journal_fractions.FRACTIONS.#{jf.title}"), [:admin, jf.journal, jf], class: 'list-group-item list-group-item-action'

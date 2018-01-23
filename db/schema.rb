@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180122091239) do
+ActiveRecord::Schema.define(version: 20180123045636) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,11 +95,11 @@ ActiveRecord::Schema.define(version: 20180122091239) do
 
   create_table "lessons", force: :cascade do |t|
     t.date "day"
-    t.integer "starts_at"
-    t.integer "ends_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "journal_fraction_id"
+    t.datetime "starts_at"
+    t.datetime "ends_at"
     t.index ["day"], name: "index_lessons_on_day"
     t.index ["journal_fraction_id"], name: "index_lessons_on_journal_fraction_id"
   end

@@ -1,0 +1,29 @@
+- header(t("journal_fractions.FRACTIONS.#{@journal_fraction.title}"))
+- breadcrumb(:admin_journal_journal_fraction, @journal_fraction)
+.row
+  .col-md-4
+    .pull-right
+      = render('admin/journal_fractions/new_modal', journal: @journal_fraction.journal, journal_fraction: JournalFraction.new(journal_id: @journal_fraction.journal_id))
+    h3 Страницы журнала
+    br
+    = render('admin/journals/fractions_nav', fractions: @journal_fraction.journal.journal_fractions)
+  .col-md-8
+    h3 Уроки
+    - if @lessons.any?
+      table.table
+        tr
+          th Дата
+          th Начало
+          th Конец
+          th Действия
+        - @lessons.each do |lesson|
+          tr
+            td = format_by_type(value: lesson.day, type: :date)
+            td = format_by_type(value: lesson.starts_at, type: :time)
+            td = format_by_type(value: lesson.ends_at, type: :time)
+            - if lesson.editable?
+              td = fa_icon('lock')
+            - else
+              td
+                = link_to edit_admin_lesson_path(lesson), class: 'btn btn-sm btn-outline-primary' do
+                  = fa_icon('pencil')

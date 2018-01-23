@@ -33,10 +33,17 @@ Rails.application.routes.draw do
     end
 
     get 'schedule', to: 'journals#schedule'
+    get 'schedule_generator', to: 'journals#schedule_generator'
 
     resources :journals do
-      resources :journal_fractions
+      resources :journal_fractions do
+        member do
+          post 'create_lessons'
+        end
+      end
     end
+
+    resources :lessons
 
     resources :users do
       collection do

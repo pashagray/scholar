@@ -1,0 +1,29 @@
+button.btn.btn-outline-primary.btn-sm data-target="#new-journal-fraction-create-lessons-modal-#{jf.id}" data-toggle="modal" type="button" 
+  = fa_icon('plus')
+/! Modal
+.modal.fade aria-hidden="true" id="new-journal-fraction-create-lessons-modal-#{jf.id}" aria-labelledby="new-journal-fraction-create-lessons-modal-#{jf.id}-title" role="dialog" tabindex="-1" 
+  .modal-dialog role="document" 
+    .modal-content
+      .modal-header
+        h5.modal-title id="new-journal-fraction-create-lessons-modal-#{jf.id}-title" Добавить уроки
+        button.close aria-label="Close" data-dismiss="modal" type="button" 
+          span aria-hidden="true"  &times;
+      .modal-body
+        = form_tag [:create_lessons, :admin, jf.journal, jf] do
+          = hidden_field_tag :journal_id, jf.journal_id
+          = hidden_field_tag :fraction, jf.title
+          .form-group
+            = label_tag :week_day, 'День недели'
+            = select_tag(:week_day, options_for_select(select_cwday), class: 'form-control')
+          .row
+            .col-md-6
+              .form-group
+                = label_tag :starts_at, 'Начало'
+                = select_tag(:starts_at, grouped_options_for_select(select_time), class: 'form-control')
+            .col-md-6
+              .form-group
+                = label_tag :ends_at, 'Окончание'
+                = select_tag(:ends_at, grouped_options_for_select(select_time), class: 'form-control')
+            .col-md-6
+          .form-group
+            = submit_tag 'Сохранить', class: 'btn btn-success'

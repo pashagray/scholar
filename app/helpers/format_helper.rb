@@ -45,5 +45,9 @@ module FormatHelper
     def datetime(value)
       value.strftime('%d.%m.%Y %H:%M')
     end
+
+    def time(value)
+      value.in_time_zone('Almaty').strftime('%H:%M')
+    end
   end
 end

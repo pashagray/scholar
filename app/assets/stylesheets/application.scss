@@ -125,3 +125,31 @@
 .advert:hover .advert-actions {
   display: block;
 }
+
+.schedule-table {
+  td {
+    border: none;
+  }
+}
+
+.schedule-table {
+  td {
+    padding: 0.2rem;
+  }
+}
+
+.schedule-table-study-group {
+
+  font-size: 70%;
+  td {
+    background-color: #EFEFEF;
+    padding: 0.2rem;
+  }
+  .lesson-subject {
+    font-weight: bolder;
+  }
+
+  .lesson-devider {
+    border-bottom: 1px solid gray;
+  }
+}

@@ -23,4 +23,8 @@ class Journal < ApplicationRecord
   scope :order_by_default, -> { joins(:academic_period).order('academic_periods.title ASC') }
 
   delegate :title, to: :subject
+
+  def study_group
+    journable_type == 'StudyGroup' ? journable : journable.study_group
+  end
 end

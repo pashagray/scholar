@@ -1,6 +1,16 @@
 module Admin
   class JournalsController < BaseController
+
     def schedule
+      params[:year] = Date.today.year if params[:year].blank?
+      params[:week] = Date.today.cweek if params[:week].blank?
+      mon = Date.commercial(params[:year].to_i, params[:week].to_i)
+      @dates = mon..(mon + 6.days)
+      @lessons = Lesson.for_week(params[:year].to_i, params[:week].to_i).order(:starts_at)
+    end
+
+    def schedule_generator
+      params[:academic_period_id] = AcademicPeriod.current.try(:id) if params[:academic_period_id].blank?
       @academic_periods = AcademicPeriod.order(:created_at)
       @study_groups = StudyGroup.order_by_model
 
@@ -9,6 +19,7 @@ module Admin
       # fraction = params[:fraction].to_sym
       if @academic_period && @study_group
         @journals = Journal.for_study_group(@study_group.id).where(academic_period_id: @academic_period.id)
+        @journal_fractions = JournalFraction.send(params[:fraction].to_sym).where(journal_id: @journals.map(&:id))
       end
     end
 
@@ -19,7 +30,7 @@ module Admin
       else
         flash[:error] = 'Журнал не создан'
       end
-      redirect_back(fallback_location: admin_schedule_path)
+      redirect_back(fallback_location: admin_schedule_generator_path)
     end
 
     def show

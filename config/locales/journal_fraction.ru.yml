@@ -1,0 +1,13 @@
+ru:
+  journal_fractions:
+    FRACTIONS:
+      first_quarter: "Первая четверть"
+      second_quarter: "Вторая четверть"
+      third_quarter: "Третья четверть"
+      fourth_quarter: "Четвертая четверть"
+      first_half_year: "Первое полугодие"
+      second_half_year: "Второе полугодие"
+  activerecord:
+    attributes:
+      journal_fraction:
+        title: "Наименование"

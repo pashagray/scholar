@@ -3,6 +3,10 @@ class AcademicPeriod < ApplicationRecord
 
   has_many :academic_fractions, dependent: :restrict_with_error
 
+  def self.current
+    all.select { |ap| ap.current? }.last
+  end
+
   def valid_quarters?
     academic_fractions.where(title: [1, 2, 3, 4]).uniq.count == 4
   end
@@ -37,5 +41,9 @@ class AcademicPeriod < ApplicationRecord
 
   def year
     (first_quarter.first)..(fourth_quarter.last)
+  end
+
+  def current?
+    Date.today > year.first && Date.today < year.last
   end
 end

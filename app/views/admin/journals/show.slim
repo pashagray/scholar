@@ -2,6 +2,12 @@
 - breadcrumb(:admin_journal, @journal)
 .row
   .col-md-4
+    .pull-right
+      = render('admin/journal_fractions/new_modal', journal: @journal, journal_fraction: JournalFraction.new(journal_id: @journal.id))
+    h3 Страницы журнала
+    br
     = render('fractions_nav', fractions: @journal_fractions)
-
+  .col-md-8
+    h3 Уроки
+    = alert_block(:warning, icon: :book, text: 'Выберите четверть/полугодие для отображения оценок')
       

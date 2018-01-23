@@ -1,0 +1,74 @@
+- header('Формирование расписания')
+- breadcrumb(:admin_schedule_generator)
+
+.row
+  .col-md-5
+    = form_tag [:admin, :schedule_generator], method: :get do
+      .row
+        .col-md-4
+          .form-group
+            = label_tag(:academic_period_id, 'Период')
+            = select_tag(:academic_period_id, options_for_select(@academic_periods.map { |ap| [ap.title, ap.id] }, selected: params[:academic_period_id]), include_blank: true, class: 'form-control')
+        .col-md-4
+          .form-group
+            = label_tag(:fraction, 'Четверть')
+            = select_tag(:fraction, options_for_select(select_quarter_title, selected: params[:fraction]), include_blank: true, class: 'form-control')
+        .col-md-4
+          .form-group
+            = label_tag(:study_group_id, 'Класс')
+            = select_tag(:study_group_id, options_for_select(@study_groups.map { |sg| [sg.full_title, sg.id] }, selected: params[:study_group_id]), include_blank: true, class: 'form-control')
+      .row
+        .col-md-12
+          .form-group
+            = submit_tag('Открыть', class: 'btn btn-primary')
+    .row
+      .col-md-12
+        - if @study_group && @academic_period
+          .pull-right
+            = render('admin/journals/new_modal', study_group_id: @study_group.id, journal: Journal.new(journable: @study_group, academic_period: @academic_period, grading_system: Setting.grading_system, fraction_grading_formula: Setting.fraction_grading_formula, period_grading_formula: Setting.period_grading_formula))
+        - else
+          .alert.alert-warning.text-center
+            h2 = fa_icon('info')
+            p Выберите период и класс
+        h3 Журналы
+        - if @journals && @journals.any?
+          table.table
+            tr
+              th Предмет
+              th Учитель
+              th Действия
+            - @journals.each do |j|
+              tr
+                td
+                  = j.subject.title
+                  - if j.journable_type == 'StudySubGroup'
+                    span.badge.badge-primary< = j.journable.title
+                td = j.teacher.short_name
+                td = link_to admin_journal_path(j), class: 'btn btn-sm btn-secondary' do
+                  = fa_icon('eye')
+        
+
+
+  .col-md-7
+    - if @journal_fractions
+      h3 Уроки
+      table.table
+        - @journal_fractions.each do |jf|
+          tr
+            th = jf.subject.title
+            th = t("journal_fractions.FRACTIONS.#{jf.title}")
+            th
+              = render('admin/journal_fractions/create_lessons_modal', jf: jf)
+              - unless jf.lessons.any?
+                span< = link_to [:admin, jf.journal, jf], method: :delete, class: 'btn btn-outline-danger btn-sm'
+                  = fa_icon('close')
+          - jf.lessons.group_by { |l| [l.day.cwday, format_by_type(value: l.starts_at, type: :time), format_by_type(value: l.ends_at, type: :time)] }.each do |time, lessons|
+            tr
+              td colspan="2"
+                = t("schedule.weekdays.#{time[0]}")
+                span.badge.badge-info< = time[1]
+                span< –
+                span.badge.badge-info< = time[2]
+              td
+                | Уроков: 
+                span< = lessons.count
