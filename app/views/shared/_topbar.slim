@@ -47,9 +47,9 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark
     .container
       = active_link_to admin_path, class: 'navbar-brand', active: :exact do
         = fa_icon('star')
-      button.navbar-toggler aria-controls="navbarNavDropdown" aria-expanded="false" aria-label=("Toggle navigation") data-target="#navbarNavDropdown" data-toggle="collapse" type="button" 
+      button.navbar-toggler aria-controls="adminNavbarNavDropdown" aria-expanded="false" aria-label=("Toggle navigation") data-target="#adminNavbarNavDropdown" data-toggle="collapse" type="button" 
         span.navbar-toggler-icon
-      #navbarNavDropdown.collapse.navbar-collapse
+      #adminNavbarNavDropdown.collapse.navbar-collapse
         ul.navbar-nav
           li.nav-item
             = active_link_to 'Настройки', admin_settings_path, class: 'nav-link'
