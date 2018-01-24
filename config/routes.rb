@@ -8,6 +8,11 @@ Rails.application.routes.draw do
 
   namespace :my do
     get '/', to: 'welcome#index'
+    get '/school', to: 'user_groups#school'
+    resources :user_groups do
+      resources :adverts
+    end
+
     get '/change_password', to: 'welcome#change_password'
     post '/confirm_change_password', to: 'welcome#confirm_change_password'
 

@@ -8,6 +8,10 @@ class UserGroup < ApplicationRecord
 
   validates :title, presence: true
 
+  def self.school
+    find_by_title('school')
+  end
+
   def self.teachers_room
     find_by_title('teachers_room')
   end

@@ -6,3 +6,8 @@ crumb :my_notifications do
   link 'Центр уведомлений', my_notifications_path
   parent :my
 end
+
+crumb :my_school do
+  link 'Моя школа', my_school_path
+  parent :my
+end

@@ -1,0 +1,61 @@
+- breadcrumb :my_school, @user_group
+- header(@user_group.full_title)
+
+.row
+  .col-md-8
+    - if current_user.admin?
+      a.btn.btn-primary.float-right href='#' data-toggle='modal' data-target='#new-advert-modal'
+        = fa_icon('plus')
+        span< Добавить объявление
+
+      .modal.fade id="new-advert-modal" tabindex="-1" role="dialog" aria-labelledby="new-advert-modal-label" aria-hidden="true"
+        .modal-dialog role="document" 
+          .modal-content
+            .modal-body
+              = form_for [:my, @user_group, @user_group.adverts.new] do |f|
+                = f.hidden_field(:advertable_type, value: 'UserGroup')
+                = f.hidden_field(:advertable_id, value: @user_group.id)
+                = form_field(f, :title, :string)
+                = form_field(f, :content, :text)
+                .form-group
+                  = f.submit 'Добавить', class: 'btn btn-primary'
+
+    h3 Новости и объявления
+    - if @adverts.any?
+      - @adverts.each do |ad|
+        .advert
+          - if current_user.admin?
+            .advert-actions.pull-right
+              = link_to teacher_user_group_advert_path(ad, user_group_id: @user_group.id), method: :delete
+                = fa_icon('trash-o')
+          h5 = ad.title
+          = text_to_html(ad.content)
+          .advert-aside
+            .pull-right
+              span.time-ago data-val="#{ad.created_at}" = ad.created_at
+            .advert-aside-author
+              .advert-aside-author-avatar
+                = image_tag(ad.author.avatar.thumb.url)
+              = ad.author.full_name
+    - else
+      br
+      .alert.alert-warning.text-center
+        h2 = fa_icon('feed')
+        p Новостей и объявлений нет. Ожидайте публикаций от администратора.
+
+  .col-md-4
+    h3 Администраторы
+    - if @user_group.users.admins.any?
+      - @user_group.users.admins.alphabetical_order.each do |u|
+        .user-in-list
+          .user-avatar-in-list
+            = image_tag(u.avatar.thumb)
+          = u.full_name
+          p
+            small = link_to 'Перейти', teacher_user_path(u)
+    - else
+      br
+      .alert.alert-warning.text-center
+        h2 = fa_icon('coffee')
+        p В школе еще нет ни одного администратора.
+
