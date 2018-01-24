@@ -36,7 +36,7 @@ module Admin
         user_params.merge(
           password: password, 
           temp_password: password,
-          remote_avatar_url: "http://api.adorable.io/avatar/200/#{(0...8).map { (65 + rand(26)).chr }.join}"
+          remote_avatar_url: AvatarGenerator.new.call
         )
       )
       if @user.save
