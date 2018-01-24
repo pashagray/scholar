@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   namespace :my do
     get '/', to: 'welcome#index'
+    get '/messenger', to: 'messenger#index'
+
     get '/school', to: 'user_groups#school'
     resources :user_groups do
       resources :adverts

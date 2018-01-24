@@ -3,6 +3,4 @@ $("#notification_<%= @id %>").fadeOut('fast');
   $(".notifications-count").html(<%= current_user.notifications.unopened_only.count %>)
 <% else %>
   $(".notifications-count").remove();
-  $(".notification-bar i").removeClass('fa-bell');
-  $(".notification-bar i").addClass('fa-bell-o');
 <% end %>
