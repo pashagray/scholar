@@ -2,17 +2,18 @@ module My
   class ChatsController < BaseController
     def index
       @chats = current_user.chats
-      @users = User.all
+      @users = User.alphabetical_order
       @current_chat = Chat.find(params[:current_chat]) if params[:current_chat]
     end
 
     def show
-      # use cancancan
+      # TODO use cancancan and add some privacy
       @chat = Chat.first.chat_members.where('user_id IN (?)', params[:user_ids])
     end
 
     def create
-      title = User.find(chat_params[:user_ids]).full_name
+      # TODO redirect to chat if exists instead of new
+      title = User.find(chat_params[:user_ids]).full_name if chat_params[:user_ids]
       newchat = Chat.create!(title: title)
       ChatMember.find_or_create_by(chat_id: newchat.id, user_id: current_user.id)
       ChatMember.find_or_create_by(chat_id: newchat.id, user_id: chat_params[:user_id])

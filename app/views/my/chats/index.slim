@@ -18,46 +18,27 @@
   .col-md-8
     - if @current_chat.present?
       ul.list-group.list-group-flush.chat-container
-        li.list-group-item
-          .user-in-list
-            .user-avatar-in-list
-              = image_tag(User.first.avatar.thumb)
-          | Cras justo odio
-          p.timestamp = l(Time.now, format: :short)
-        li.list-group-item
-          .user-in-list
-            .user-avatar-in-list
-              = image_tag(User.first.avatar.thumb)
-          | Dapibus ac facilisis in
-          p.timestamp = l(Time.now, format: :short)
-        li.list-group-item
-          .user-in-list
-            .user-avatar-in-list
-              = image_tag(User.last.avatar.thumb)
-          | Morbi leo risus
-          p.timestamp = l(Time.now, format: :short)
-        li.list-group-item
-          .user-in-list
-            .user-avatar-in-list
-              = image_tag(User.first.avatar.thumb)
-          | Porta ac consectetur ac is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-          p.timestamp = l(Time.now, format: :short)
-        li.list-group-item
-          .user-in-list
-            .user-avatar-in-list
-              = image_tag(User.last.avatar.thumb)
-          | Vestibulum at eros
-          p.timestamp = l(Time.now, format: :short)
+        - @current_chat.messages.each do |m|
+          li.list-group-item
+            .user-in-list
+              .user-avatar-in-list
+                = image_tag(m.user.avatar.thumb)
+            = m.content
+            - if m.attachment.present? && m.attachment.image?
+              = image_tag(m.attachment.messenger)
+            p.timestamp = l(m.created_at, format: :short)
       .new-message
-        = form_for :message do |f|
-          = link_to my_messenger_path, class: 'btn btn-outline-primary btn-sm' do
-            = fa_icon('paperclip')
-          
-
-        br
-        - @current_chat.messages do |m|
-          = m
-
+        = form_for :message, multipart: true, remote: true, url: { controller: 'messages', action: "create" }, html: { style: 'min-width: 100%' } do |f|
+          span[id='fake-input', class='btn btn-outline-primary btn-sm fileinput-button']
+            = fa_icon('paperclip', style: "font-size: 25px")
+            = f.file_field(:attachment, multiple: false, id: 'file-input')
+          | &nbsp;
+          | &nbsp;
+          = f.text_field(:content, class: 'form-control', contenteditable: true, style: 'max-width: 75%; display: inline-block;')
+          | &nbsp;
+          | &nbsp;
+          = f.hidden_field(:chat_id, value: @current_chat.id)
+          = f.submit 'Отправить', class: 'btn btn-primary'
     - else
       = alert_block(:warning, icon: 'comments', text: 'Выберите пользователя, чтобы начать диалог')
   = render('select_user', users: @users)
@@ -68,4 +49,9 @@ javascript:
     if (objDiv.length > 0){
       objDiv[0].scrollTop = objDiv[0].scrollHeight;
     }
+  });
+  /* $('#file-input').hide(); */
+
+  $('#fake-input').click (function() {
+    $('#file-input').trigger('click');
   });

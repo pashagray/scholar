@@ -1,6 +1,6 @@
 class AttachmentUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
-  # include CarrierWave::RMagick
+  include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
@@ -11,6 +11,10 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+  end
+
+  def image?
+   self.url.split('.').last.in?(['png', 'jpeg', 'jpg', 'bmp'])
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
@@ -29,10 +33,29 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-  # version :thumb do
-  #   process resize_to_fit: [50, 50]
-  # end
+  version :thumb do
+    process :resize_to_fill => [200, 200]
+  end
 
+  version :messenger do
+    process :create_messenger_version
+  end
+
+  def create_messenger_version
+    img = Magick::Image.read(current_path)
+    width = img[0].columns
+    height = img[0].rows
+    if width > height
+      # original is landscape
+      resize_to_fill(638, 392)
+    else
+      # original is portrait
+      resize_to_fit(638, 392)
+    end
+  end
+  # version :medium do
+  #   process :resize_to_fill => [638, ]
+  # end
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   # def extension_whitelist

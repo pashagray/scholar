@@ -176,3 +176,20 @@
   color: grey;
   font-size: 80%;
 }
+
+.fileinput-button {
+  position: relative;
+  overflow: hidden;
+  float: left;
+  margin-right: 4px;
+  width: 38px;
+  height: 38px;
+  input{
+    opacity: 0;
+    filter: alpha(opacity=0);
+    transform: translate(-300px, 0) scale(4);
+    -webkit-transform: translate(-300px, 0)scale(4);
+    direction: ltr;
+    cursor: pointer;
+  }
+}

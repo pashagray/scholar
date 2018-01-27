@@ -2,13 +2,19 @@ module My
   class MessagesController < BaseController
     def create
       message = Message.new(message_params)
-      # if message.save
-      #   ActionCable.server.broadcast("messages_#{message_params[:chat_id]}",
-      #                                message: message.content,
-      #                                user: message.user.username)
-      # else
-      #   redirect_to chats_path
-      # end
+      message.user_id = current_user.id
+      message.attachment = message_params[:attachment]
+      if message.save
+        target_chat_member = message.chat.chat_members.where.not(user_id: current_user.id).first
+        target_user = User.find(target_chat_member.user_id)
+        ActionCable.server.broadcast("messages_channel_#{target_user.id}",
+                                     chat_id: message.chat_id,
+                                     message: message.content,
+                                     sender_avatar_url: current_user.avatar.thumb.url,
+                                     created: message.created_at,
+                                     attachment: message.attachment.url)
+      end
+      redirect_to my_chats_path(current_chat: message.chat_id)
     end
 
     private

@@ -1,4 +1,4 @@
-.current-user-bar
+.current-user-bar[data-id="#{current_user.id}"]
   .container
     .pull-right style="line-height: 2.8;"
       .notification-bar
@@ -15,13 +15,13 @@
     b = current_user.full_name
     p
       small = link_to('Моя страница', my_path)
-      small< |    
+      small< |
       small = link_to('Выйти', destroy_user_session_path, method: :delete)
 
 nav.navbar.navbar-expand-md.navbar-dark.bg-dark
   .container
     a.navbar-brand href='/' = Setting.school_title_short
-    button.navbar-toggler aria-controls="navbarNavDropdown" aria-expanded="false" aria-label=("Toggle navigation") data-target="#navbarNavDropdown" data-toggle="collapse" type="button" 
+    button.navbar-toggler aria-controls="navbarNavDropdown" aria-expanded="false" aria-label=("Toggle navigation") data-target="#navbarNavDropdown" data-toggle="collapse" type="button"
       span.navbar-toggler-icon
     #navbarNavDropdown.collapse.navbar-collapse
       ul.navbar-nav
@@ -47,7 +47,7 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark
     .container
       = active_link_to admin_path, class: 'navbar-brand', active: :exact do
         = fa_icon('star')
-      button.navbar-toggler aria-controls="adminNavbarNavDropdown" aria-expanded="false" aria-label=("Toggle navigation") data-target="#adminNavbarNavDropdown" data-toggle="collapse" type="button" 
+      button.navbar-toggler aria-controls="adminNavbarNavDropdown" aria-expanded="false" aria-label=("Toggle navigation") data-target="#adminNavbarNavDropdown" data-toggle="collapse" type="button"
         span.navbar-toggler-icon
       #adminNavbarNavDropdown.collapse.navbar-collapse
         ul.navbar-nav
