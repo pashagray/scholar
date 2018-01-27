@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180123045636) do
+ActiveRecord::Schema.define(version: 20180127121748) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,19 @@ ActiveRecord::Schema.define(version: 20180123045636) do
     t.index ["advertable_type"], name: "index_adverts_on_advertable_type"
     t.index ["author_id"], name: "index_adverts_on_author_id"
     t.index ["pinned"], name: "index_adverts_on_pinned"
+  end
+
+  create_table "chat_members", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "chat_id"
+    t.index ["chat_id"], name: "index_chat_members_on_chat_id"
+    t.index ["user_id"], name: "index_chat_members_on_user_id"
+  end
+
+  create_table "chats", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "title"
   end
 
   create_table "custodian_profiles", force: :cascade do |t|
@@ -102,6 +115,17 @@ ActiveRecord::Schema.define(version: 20180123045636) do
     t.datetime "ends_at"
     t.index ["day"], name: "index_lessons_on_day"
     t.index ["journal_fraction_id"], name: "index_lessons_on_journal_fraction_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.text "content"
+    t.bigint "chat_id"
+    t.bigint "user_id"
+    t.string "attachment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chat_id"], name: "index_messages_on_chat_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "notifications", id: :serial, force: :cascade do |t|
@@ -275,4 +299,6 @@ ActiveRecord::Schema.define(version: 20180123045636) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "messages", "chats"
+  add_foreign_key "messages", "users"
 end

@@ -66,7 +66,7 @@
       height: 48px;
       border-radius: 100px;
     }
-  }  
+  }
 }
 
 .study-group-in-list {
@@ -83,7 +83,7 @@
       height: 48px;
       border-radius: 100px;
     }
-  }  
+  }
 }
 
 .advert {
@@ -151,4 +151,28 @@
   .lesson-devider {
     border-bottom: 1px solid gray;
   }
+}
+
+.chat-container {
+  height: 400px;
+  max-height: 400px;
+  overflow-y: scroll;
+}
+
+.new-message {
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  list-style: none;
+  min-height: 30px;
+  background-color: #fff;
+  border-radius: 0.25rem;
+}
+
+.timestamp {
+  float: right;
+  color: grey;
+  font-size: 80%;
 }

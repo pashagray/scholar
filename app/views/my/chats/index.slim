@@ -1,0 +1,71 @@
+- header('Мессенджер')
+- breadcrumb(:my_messenger)
+.row
+  .col-md-4
+    button.btn.btn-outline-primary.btn-block[type="button" data-toggle="modal" data-target="#exampleModalLong"]
+      | Начать новый диалог
+    br
+    h4 Мои чаты
+    .list-group
+    - @chats.each do |c|
+      button.list-group-item.list-group-item-action.user_trigger[type="button"]
+        .user-in-list
+          = c.title
+          - c.chat_members.where.not(user_id: current_user.id).limit(3).each do |cm|
+            .user-avatar-in-list
+              = image_tag(cm.user.avatar.thumb)
+
+  .col-md-8
+    - if @current_chat.present?
+      ul.list-group.list-group-flush.chat-container
+        li.list-group-item
+          .user-in-list
+            .user-avatar-in-list
+              = image_tag(User.first.avatar.thumb)
+          | Cras justo odio
+          p.timestamp = l(Time.now, format: :short)
+        li.list-group-item
+          .user-in-list
+            .user-avatar-in-list
+              = image_tag(User.first.avatar.thumb)
+          | Dapibus ac facilisis in
+          p.timestamp = l(Time.now, format: :short)
+        li.list-group-item
+          .user-in-list
+            .user-avatar-in-list
+              = image_tag(User.last.avatar.thumb)
+          | Morbi leo risus
+          p.timestamp = l(Time.now, format: :short)
+        li.list-group-item
+          .user-in-list
+            .user-avatar-in-list
+              = image_tag(User.first.avatar.thumb)
+          | Porta ac consectetur ac is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+          p.timestamp = l(Time.now, format: :short)
+        li.list-group-item
+          .user-in-list
+            .user-avatar-in-list
+              = image_tag(User.last.avatar.thumb)
+          | Vestibulum at eros
+          p.timestamp = l(Time.now, format: :short)
+      .new-message
+        = form_for :message do |f|
+          = link_to my_messenger_path, class: 'btn btn-outline-primary btn-sm' do
+            = fa_icon('paperclip')
+          
+
+        br
+        - @current_chat.messages do |m|
+          = m
+
+    - else
+      = alert_block(:warning, icon: 'comments', text: 'Выберите пользователя, чтобы начать диалог')
+  = render('select_user', users: @users)
+
+javascript:
+  $(document).ready( function() {
+    var objDiv = $('.chat-container');
+    if (objDiv.length > 0){
+      objDiv[0].scrollTop = objDiv[0].scrollHeight;
+    }
+  });
