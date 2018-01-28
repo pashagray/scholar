@@ -33,6 +33,7 @@ gem 'react-rails'
 gem 'petrovich', '~> 1.0'
 gem 'therubyracer'
 gem 'activity_notification'
+gem 'fog-aws'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

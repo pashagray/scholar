@@ -28,6 +28,7 @@ class User < ApplicationRecord
   has_many :study_sub_groups, through: :study_sub_group_students, source: :study_sub_group
 
   has_many :adverts, as: :author
+  has_many :attachments, as: :attachmentable
 
   has_many :user_in_groups
   has_many :user_groups, through: :user_in_groups
