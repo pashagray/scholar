@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180127121748) do
+ActiveRecord::Schema.define(version: 20180134085051) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pgcrypto"
 
   create_table "academic_fractions", force: :cascade do |t|
     t.string "title"
@@ -51,6 +52,18 @@ ActiveRecord::Schema.define(version: 20180127121748) do
     t.index ["advertable_type"], name: "index_adverts_on_advertable_type"
     t.index ["author_id"], name: "index_adverts_on_author_id"
     t.index ["pinned"], name: "index_adverts_on_pinned"
+  end
+
+  create_table "attachments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "attachmentable_type"
+    t.integer "attachmentable_id"
+    t.string "doc"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["attachmentable_id"], name: "index_attachments_on_attachmentable_id"
+    t.index ["attachmentable_type", "attachmentable_id"], name: "index_attachments_on_attachmentable_type_and_attachmentable_id"
+    t.index ["attachmentable_type"], name: "index_attachments_on_attachmentable_type"
+    t.index ["doc"], name: "index_attachments_on_doc"
   end
 
   create_table "chat_members", force: :cascade do |t|

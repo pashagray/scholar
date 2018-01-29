@@ -7,12 +7,12 @@ module My
       if message.save
         target_chat_member = message.chat.chat_members.where.not(user_id: current_user.id).first
         target_user = User.find(target_chat_member.user_id)
-        ActionCable.server.broadcast("messages_channel_#{target_user.id}",
+        ActionCable.server.broadcast("messages_channel_#{message.chat_id}",
                                      chat_id: message.chat_id,
                                      message: message.content,
                                      sender_avatar_url: current_user.avatar.thumb.url,
                                      created: message.created_at,
-                                     attachment: message.attachment.url)
+                                     attachment: message.attachment.messenger.url)
       end
       redirect_to my_chats_path(current_chat: message.chat_id)
     end

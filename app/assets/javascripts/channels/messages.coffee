@@ -2,6 +2,7 @@ ready = ->
   App.global_event = App.cable.subscriptions.create {
     channel: "MessagesChannel"
     current_user: $('.current-user-bar').data('id')
+    chat_id: window.location.search.substr(1)
   },
   connected: ->
     # Called when the subscription is ready for use on the server
@@ -10,8 +11,6 @@ ready = ->
     # Called when the subscription has been terminated by the server
 
   received: (data) ->
-    # TODO why do they sometimes multiple? routes issue?
-    alert('received!')
     if window.location.search.substr(1) == "current_chat=#{data.chat_id}"
       if data.attachment != null
         $('.chat-container').append(" \

@@ -8,12 +8,13 @@
     h4 Мои чаты
     .list-group
     - @chats.each do |c|
-      button.list-group-item.list-group-item-action.user_trigger[type="button"]
-        .user-in-list
-          = c.title
-          - c.chat_members.where.not(user_id: current_user.id).limit(3).each do |cm|
-            .user-avatar-in-list
-              = image_tag(cm.user.avatar.thumb)
+      = link_to my_chats_path(current_chat: c.id) do
+        button.list-group-item.list-group-item-action.user_trigger[type="button"]
+          .user-in-list
+            = c.title
+            - c.chat_members.where.not(user_id: current_user.id).limit(3).each do |cm|
+              .user-avatar-in-list
+                = image_tag(cm.user.avatar.thumb)
 
   .col-md-8
     - if @current_chat.present?
@@ -29,16 +30,20 @@
             p.timestamp = l(m.created_at, format: :short)
       .new-message
         = form_for :message, multipart: true, remote: true, url: { controller: 'messages', action: "create" }, html: { style: 'min-width: 100%' } do |f|
-          span[id='fake-input', class='btn btn-outline-primary btn-sm fileinput-button']
-            = fa_icon('paperclip', style: "font-size: 25px")
-            = f.file_field(:attachment, multiple: false, id: 'file-input')
-          | &nbsp;
-          | &nbsp;
-          = f.text_field(:content, class: 'form-control', contenteditable: true, style: 'max-width: 75%; display: inline-block;')
-          | &nbsp;
-          | &nbsp;
-          = f.hidden_field(:chat_id, value: @current_chat.id)
-          = f.submit 'Отправить', class: 'btn btn-primary'
+          .row
+            .col-md-1
+              span[id='fake-input', class='btn btn-outline-primary btn-sm fileinput-button']
+                = fa_icon('paperclip', style: "font-size: 25px")
+                = f.file_field(:attachment, autocomplete: 'off', multiple: false, id: 'file-input')
+              | &nbsp;
+              | &nbsp;
+            .col-md-9
+              = f.text_area(:content, autocomplete: 'off', list: '', class: 'form-control', contenteditable: true, rows: 1, style: 'max-width: 100%; display: inline-block;')
+              | &nbsp;
+              | &nbsp;
+              = f.hidden_field(:chat_id, value: @current_chat.id)
+            .col-md-2
+              = f.submit 'Отправить', class: 'btn btn-primary'
     - else
       = alert_block(:warning, icon: 'comments', text: 'Выберите пользователя, чтобы начать диалог')
   = render('select_user', users: @users)

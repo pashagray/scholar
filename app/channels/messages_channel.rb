@@ -1,6 +1,8 @@
 class MessagesChannel < ApplicationCable::Channel
   def subscribed
-    stream_from "messages_channel_#{current_user.id}"
+    if params[:chat_id].match?(/current_chat=\d+/)
+      stream_from "messages_channel_#{params[:chat_id].split(/=/).last}"
+    end
   end
 
   def unsubscribed
