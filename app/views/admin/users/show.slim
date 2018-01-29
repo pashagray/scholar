@@ -21,3 +21,18 @@
     = render('admin/admin_profiles/card', user: @user)
     = render('admin/student_profiles/card', user: @user)
     = render('admin/teacher_profiles/card', user: @user)
+.row
+  .col-md-4
+    = form_for [:admin, Attachment.new] do |f|
+      = f.hidden_field :attachmentable_id, value: @user.id
+      = f.hidden_field :attachmentable_type, value: 'User'
+      = form_field(f, :doc, :file)
+      .row
+        .col-md-12
+          .form-group
+            = f.submit 'Сохранить', class: 'btn btn-primary'
+  .col-md-8
+    - @user.attachments.each do |attach|
+      p
+        = link_to attach.doc.file.filename, attach.doc.url
+        = link_to 'Удалить', admin_attachment_path(attach), method: :delete

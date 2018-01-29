@@ -85,6 +85,8 @@ Rails.application.routes.draw do
         end
       end
     end
+
+    resources :attachments, only: [:create, :destroy]
   end
 
   namespace :teacher do
