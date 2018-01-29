@@ -7,6 +7,7 @@
         button.close[type="button" data-dismiss="modal" aria-label="Close"]
           span[aria-hidden="true"]
             | ×
+      input.form-control[type='text', id='search-user' style='width:90%; margin-left: 5%']
       .modal-body
         .list-group
           - users.each do |u|
@@ -14,7 +15,8 @@
               .user-in-list
                 .user-avatar-in-list
                   = image_tag(u.avatar.thumb)
-                = u.full_name
+                p.uname
+                  = u.full_name
       .modal-footer
         button.btn.btn-secondary[type="button" data-dismiss="modal"]
           | Закрыть
@@ -25,4 +27,13 @@
 javascript:
   $('.user_trigger').click (function() {
     $('#user_ids').val($(this).data('user'));
+  });
+
+  $('#search-user').on('keyup', function() {
+  	var searchVal = $(this).val().toLowerCase;
+    var data = {};
+    $('.user-trigger').filter(function() {
+      alert($(this + ' > .user-in-list > .user-avatar-in-list > .uname').text().indexOf(searchVal));
+      return $(this + ' > .user-in-list > .user-avatar-in-list > .uname').text().indexOf(searchVal) < 0
+    }).hide()
   });
