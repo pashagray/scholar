@@ -14,9 +14,8 @@ module My
     def create
       # TODO redirect to chat if exists instead of new
       title = User.find(chat_params[:user_ids]).full_name if chat_params[:user_ids]
-      newchat = Chat.create!(title: title)
-      ChatMember.find_or_create_by(chat_id: newchat.id, user_id: current_user.id)
-      ChatMember.find_or_create_by(chat_id: newchat.id, user_id: chat_params[:user_id])
+      newchat = Chat.create(title: title, user_ids: [params[:user_id], current_user.id])
+      # Chat.joins(:users).pluck('users.id')
       redirect_to my_chats_path(current_chat: newchat.id)
     end
 

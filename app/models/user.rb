@@ -33,10 +33,8 @@ class User < ApplicationRecord
   has_many :user_in_groups
   has_many :user_groups, through: :user_in_groups
 
-  has_many :chat_members
-  has_many :chats, through: :chat_members
   has_many :messages
-
+  has_and_belongs_to_many :chats
   scope :students,   -> { joins(:student_profile) }
   scope :teachers,   -> { joins(:teacher_profile) }
   scope :custodians, -> { joins(:custodian_profile) }
