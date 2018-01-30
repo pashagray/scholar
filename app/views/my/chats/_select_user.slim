@@ -13,10 +13,9 @@
           - users.each do |u|
             button.list-group-item.list-group-item-action.user_trigger[type="button" data-user="#{u.id}"]
               .user-in-list
+                = u.full_name
                 .user-avatar-in-list
                   = image_tag(u.avatar.thumb)
-                p.uname
-                  = u.full_name
       .modal-footer
         button.btn.btn-secondary[type="button" data-dismiss="modal"]
           | Закрыть
@@ -28,12 +27,11 @@ javascript:
   $('.user_trigger').click (function() {
     $('#user_ids').val($(this).data('user'));
   });
-
-  $('#search-user').on('keyup', function() {
-  	var searchVal = $(this).val().toLowerCase;
-    var data = {};
-    $('.user-trigger').filter(function() {
-      alert($(this + ' > .user-in-list > .user-avatar-in-list > .uname').text().indexOf(searchVal));
-      return $(this + ' > .user-in-list > .user-avatar-in-list > .uname').text().indexOf(searchVal) < 0
-    }).hide()
+  $(document).ready(function(){
+    $("#search-user").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $(".list-group .list-group-item .user-in-list").filter(function() {
+        $(this).parent().toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
   });
