@@ -1,12 +1,14 @@
 module My
   class MessagesController < BaseController
+    protect_from_forgery with: :exception
+
     def create
       message = Message.new(message_params)
       message.user_id = current_user.id
       message.attachment = message_params[:attachment]
       if message.save
-        target_chat_member = message.chat.chat_members.where.not(user_id: current_user.id).first
-        target_user = User.find(target_chat_member.user_id)
+        target_chat_member = message.chat.users.where.not(id: current_user.id).first
+        target_user = User.find(target_chat_member.id)
         ActionCable.server.broadcast("messages_channel_#{message.chat_id}",
                                      chat_id: message.chat_id,
                                      message: message.content,

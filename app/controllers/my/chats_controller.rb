@@ -8,7 +8,8 @@ module My
 
     def show
       # TODO use cancancan and add some privacy
-      @chat = Chat.first.chat_members.where('user_id IN (?)', params[:user_ids])
+      # ???
+      @chat = Chat.joins(:users).where('users.id IN (?)', params[:user_ids])
     end
 
     def create

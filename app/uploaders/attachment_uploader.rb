@@ -18,8 +18,8 @@ class AttachmentUploader < CarrierWave::Uploader::Base
     "uploads/#{Rails.env}/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
-  def image?
-   self.url.split('.').last.in?(['png', 'jpeg', 'jpg', 'bmp'])
+  def extension_white_list
+    %w(pdf doc htm html docx png jpeg jpg bmp)
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
@@ -38,9 +38,8 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-  version :thumb do
-    process :resize_to_fill => [200, 200]
-  end
+
+  version :messenger, if: :is_image?
 
   version :messenger do
     process :create_messenger_version
@@ -72,4 +71,12 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
+
+  def image?
+    url.split('.').last.in?(%w[png jpeg jpg bmp])
+  end
+
+  def is_image? picture
+    url.split('.').last.in?(%w[png jpeg jpg bmp])
+  end
 end

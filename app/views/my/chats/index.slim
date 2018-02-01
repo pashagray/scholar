@@ -12,9 +12,9 @@
         button.list-group-item.list-group-item-action.user_trigger[type="button"]
           .user-in-list
             = c.title
-            - c.chat_members.where.not(user_id: current_user.id).limit(3).each do |cm|
+            - c.users.where.not(id: current_user.id).limit(3).each do |u|
               .user-avatar-in-list
-                = image_tag(cm.user.avatar.thumb)
+                = image_tag(u.avatar.thumb)
 
   .col-md-8
     - if @current_chat.present?
@@ -24,12 +24,22 @@
             .user-in-list
               .user-avatar-in-list
                 = image_tag(m.user.avatar.thumb)
-            = m.content
-            - if m.attachment.present? && m.attachment.image?
-              = image_tag(m.attachment.messenger)
+            p
+              = m.content
+            - if m.attachment.present?
+              - if m.attachment.image?
+                = image_tag(m.attachment.messenger)
+              - else
+                .alert.alert-info[role="alert" style='width: 80%; float: left']
+                  = m.attachment.file.filename
+                  | &nbsp;
+                  | &nbsp;
+                  = link_to m.attachment.url, class: 'btn btn-outline-primary btn-sm' do
+                    = fa_icon('download')
+
             p.timestamp = l(m.created_at, format: :short)
       .new-message
-        = form_for :message, multipart: true, remote: true, url: { controller: 'messages', action: "create" }, html: { style: 'min-width: 100%' } do |f|
+        = form_for :message, multipart: true, remote: false, url: { controller: 'messages', action: "create" }, html: { style: 'min-width: 100%' } do |f|
           .row
             .col-md-1
               span[id='fake-input', class='btn btn-outline-primary btn-sm fileinput-button']

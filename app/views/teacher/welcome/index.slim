@@ -14,8 +14,8 @@
             small = link_to 'Перейти', teacher_study_group_path(sg)
   .col-md-8
     h3 Последние новости в учительской
-    - @adverts = UserGroup.teachers_room.adverts
-    - if @adverts.any?
+    - @adverts = UserGroup&.teachers_room&.adverts
+    - if @adverts && @adverts.any?
       - @adverts.each do |ad|
         .advert
           - if current_user.admin?
