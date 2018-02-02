@@ -13,7 +13,7 @@ module My
                                      chat_id: message.chat_id,
                                      message: message.content,
                                      sender_avatar_url: current_user.avatar.thumb.url,
-                                     created: message.created_at,
+                                     created: l(message.created_at, format: :short),
                                      attachment: message.attachment.messenger.url)
       end
       redirect_to my_chats_path(current_chat: message.chat_id)
