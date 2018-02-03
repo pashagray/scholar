@@ -1,7 +1,5 @@
 module SignInMacros
   def sign_in(user)
-    p '--------'
-    p user
     visit new_user_session_path
     fill_in 'user_iin', with: user.iin
     fill_in 'user_password', with: user.password

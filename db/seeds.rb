@@ -5,7 +5,7 @@
 #
 
 av_gen = AvatarGenerator.new
-=begin
+
 # ADMIN
 admin = User.create(
   first_name: 'Иван',
@@ -30,15 +30,3 @@ teacher = User.create(
   remote_avatar_url: av_gen.call
 )
 TeacherProfile.create(user_id: teacher.id)
-=end
-# STUDENT
-student = User.create(
-  first_name: 'Сидор',
-  last_name: 'Сидоров',
-  middle_name: 'Сидорович',
-  iin: 345234554390,
-  password: '12345678',
-  gender: 'male',
-  remote_avatar_url: av_gen.call
-)
-StudentProfile.create(user_id: student.id)

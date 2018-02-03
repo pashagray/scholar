@@ -31,7 +31,7 @@
               = m.content
             - if m.attachment.present?
               - if m.attachment.image?
-                = image_tag(m.attachment.messenger)
+                = image_tag(m.attachment.messenger, class: 'message_attachment')
               - else
                 .alert.alert-info[role="alert" style='width: 80%; float: left']
                   = m.attachment.file.filename

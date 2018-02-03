@@ -52,6 +52,8 @@ group :test do
   gem 'capybara-screenshot'
   # gem 'chromedriver-helper'
   gem 'database_cleaner'
+  gem 'launchy'
+  gem 'capybara-webkit'
   gem 'selenium-webdriver'
   # gem 'shoulda-matchers'
 end

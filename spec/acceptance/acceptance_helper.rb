@@ -1,6 +1,6 @@
 require 'rails_helper'
 # Capybara.server = :puma
-Capybara.default_driver = :selenium
+Capybara.default_driver = :webkit
 Capybara.default_max_wait_time = 10
 Capybara.server_host = '0.0.0.0'
 Capybara.server_port = 313_37
@@ -18,7 +18,7 @@ RSpec.configure do |config|
   #   end
 
   config.after(:each, type: :feature) do
-    Capybara.current_session.driver.quit
+   Capybara.current_session.driver.quit
   end
 
   config.before(:suite) do
