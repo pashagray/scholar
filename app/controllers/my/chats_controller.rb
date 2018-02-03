@@ -35,8 +35,12 @@ module My
     end
 
     def users_no_chat
-      ids = User.first.chats.joins(:users).pluck('users.id')
-      User.alphabetical_order.where('id NOT IN (?)', ids)
+      ids = current_user.chats.joins(:users).pluck('users.id')
+      if ids.present?
+        User.alphabetical_order.where('id NOT IN (?)', ids)
+      else
+        User.alphabetical_order.where('id != ?', current_user.id)
+      end
     end
   end
 end

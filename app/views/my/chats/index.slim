@@ -1,4 +1,7 @@
-- header('Мессенджер')
+- if @current_chat.present?
+  - header("Мессенджер - #{@current_chat.title}")
+- else
+  - header('Мессенджер')
 - breadcrumb(:my_messenger)
 .row
   .col-md-4
