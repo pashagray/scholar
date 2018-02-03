@@ -1,16 +1,9 @@
 module My
   class ChatsController < BaseController
     def index
-      binding.pry
       @chats = current_user.chats
-      @users = User.alphabetical_order
+      @users = users_no_chat
       @current_chat = Chat.find(params[:current_chat]) if params[:current_chat] && chat_member?(params[:current_chat])
-    end
-
-    def show
-      # TODO use cancancan and add some privacy
-      # ???
-      @chat = Chat.joins(:users).where('users.id IN (?)', params[:user_ids])
     end
 
     def create
@@ -39,6 +32,11 @@ module My
 
     def chat_member?(chat_id)
       current_user.id.in?Chat.find(chat_id).users.pluck('users.id')
+    end
+
+    def users_no_chat
+      ids = User.first.chats.joins(:users).pluck('users.id')
+      User.alphabetical_order.where('id NOT IN (?)', ids)
     end
   end
 end

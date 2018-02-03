@@ -14,7 +14,9 @@ module My
                                      message: message.content,
                                      sender_avatar_url: current_user.avatar.thumb.url,
                                      created: l(message.created_at, format: :short),
-                                     attachment: message.attachment.messenger.url)
+                                     img_attachment: message.attachment.messenger.url,
+                                     attachment: message.attachment.url,
+                                     attachment_title: message.attachment.file.filename)
       end
       redirect_to my_chats_path(current_chat: message.chat_id)
     end
