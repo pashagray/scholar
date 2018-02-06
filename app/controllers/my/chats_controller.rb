@@ -4,11 +4,17 @@ module My
       @chats = current_user.chats
       @users = users_no_chat
       @current_chat = Chat.find(params[:current_chat]) if params[:current_chat] && chat_member?(params[:current_chat])
+      if @current_chat.present?
+        @current_chat.messages.each do |m|
+          m.read_by << @current_user.id unless @current_user.id.to_s.in?(m.read_by) || @current_user.id == m.user_id
+          m.save!
+        end
+      end
     end
 
     def create
       user = chat_params[:user_id].to_i
-      if chat_exists(user)
+      if chat_exists(user).present?
         flash[:error] = 'Чат уже существует, вот он:'
         redirect_to my_chats_path(current_chat: chat_exists(user))
       else
@@ -26,7 +32,8 @@ module My
 
     def chat_exists(user_id)
       if user_id.in?(Chat.joins(:users).pluck('users.id'))
-        Chat.joins(:users).where('users.id = ? && users.id = ?', user_id, current_user).first.id
+        # Chat.joins(:users).where('users.id IN (?)' [1, 2]).first
+        Chat.joins(:users).where('users.id = ? AND users.id = ?', user_id, current_user).first&.id
       end
     end
 

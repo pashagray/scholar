@@ -52,9 +52,11 @@ ready = ->
           #{data.message} \
           <p class='timestamp'>#{data.created}<p> \
         </li>")
-    objDiv = $('.chat-container')
-    if objDiv.length > 0
-      objDiv[0].scrollTop = objDiv[0].scrollHeight;
+      objDiv = $('.chat-container')
+      if objDiv.length > 0
+        objDiv[0].scrollTop = objDiv[0].scrollHeight;
+    /* else */
+
 
 if typeof Turbolinks == "undefined"
   $(document).ready(ready)

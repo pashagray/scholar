@@ -15,6 +15,8 @@
         button.list-group-item.list-group-item-action.user_trigger[type="button"]
           .user-in-list
             = c.title
+            span.badge.badge-primary[style='float: right']
+              = c.unread_count(current_user) if c.id != @current_chat&.id && c.unread_count(current_user) != 0 
             - c.users.where.not(id: current_user.id).limit(3).each do |u|
               .user-avatar-in-list
                 = image_tag(u.avatar.thumb)
