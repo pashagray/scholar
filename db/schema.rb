@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180205174625) do
+ActiveRecord::Schema.define(version: 20180206172418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,9 +67,9 @@ ActiveRecord::Schema.define(version: 20180205174625) do
   end
 
   create_table "chats", force: :cascade do |t|
+    t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "title"
   end
 
   create_table "chats_users", id: false, force: :cascade do |t|
@@ -131,13 +131,21 @@ ActiveRecord::Schema.define(version: 20180205174625) do
   create_table "messages", force: :cascade do |t|
     t.text "content"
     t.bigint "chat_id"
-    t.bigint "user_id"
+    t.integer "author_id"
     t.string "attachment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "read_by", default: [], array: true
     t.index ["chat_id"], name: "index_messages_on_chat_id"
-    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
+  create_table "messages_users", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "message_id"
+    t.integer "chat_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["message_id"], name: "index_messages_users_on_message_id"
+    t.index ["user_id"], name: "index_messages_users_on_user_id"
   end
 
   create_table "notifications", id: :serial, force: :cascade do |t|
@@ -312,5 +320,4 @@ ActiveRecord::Schema.define(version: 20180205174625) do
   end
 
   add_foreign_key "messages", "chats"
-  add_foreign_key "messages", "users"
 end

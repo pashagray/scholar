@@ -55,7 +55,6 @@ ready = ->
       objDiv = $('.chat-container')
       if objDiv.length > 0
         objDiv[0].scrollTop = objDiv[0].scrollHeight;
-    /* else */
 
 
 if typeof Turbolinks == "undefined"

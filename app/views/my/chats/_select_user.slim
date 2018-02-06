@@ -11,7 +11,7 @@
       .modal-body
         .list-group
           - users.each do |u|
-            button.list-group-item.list-group-item-action.user_trigger[type="button" data-user="#{u.id}"]
+            button.list-group-item.list-group-item-action.user_trigger.user_select[type="button" data-user="#{u.id}"]
               .user-in-list
                 = u.full_name
                 .user-avatar-in-list

@@ -3,8 +3,6 @@ class Chat < ApplicationRecord
   has_many :messages, -> { order(created_at: :asc) }, dependent: :destroy
 
   def unread_count(user)
-    sum = 0
-    messages.where.not(user_id: user.id).each { |m| sum += 1 unless user.id.to_s.in?(m.read_by) }
-    sum
+    messages.count - MessagesUser.where(chat_id: self.id, user_id: user.id).count
   end
 end

@@ -3,7 +3,7 @@ class CreateMessages < ActiveRecord::Migration[5.1]
     create_table :messages do |t|
       t.text :content
       t.belongs_to :chat, foreign_key: true
-      t.belongs_to :user, foreign_key: true
+      t.integer :author_id
       t.string :attachment
 
       t.timestamps

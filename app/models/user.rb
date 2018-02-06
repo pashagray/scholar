@@ -33,7 +33,8 @@ class User < ApplicationRecord
   has_many :user_in_groups
   has_many :user_groups, through: :user_in_groups
 
-  has_many :messages
+  has_many :messages_users, dependent: :destroy
+  has_many :read_messages, class_name: 'Message', through: :messages_users, source: :message
   has_and_belongs_to_many :chats
   scope :students,   -> { joins(:student_profile) }
   scope :teachers,   -> { joins(:teacher_profile) }
@@ -93,5 +94,10 @@ class User < ApplicationRecord
 
   def printable_notifier_name
     full_name
+  end
+
+  def unread_count
+    self.chats.joins(:messages).count - self.read_messages.count
+    # Message.where('id NOT IN (?)', self.read_messages.select(:id)).count
   end
 end

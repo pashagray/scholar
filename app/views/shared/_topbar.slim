@@ -4,6 +4,10 @@
       .notification-bar
         = link_to my_messenger_path, class: 'btn btn-outline-primary btn-sm' do
           = fa_icon('comment-o')
+          | &nbsp;
+          - if current_user.unread_count && current_user.unread_count > 0
+            span.badge.badge-primary.total_unread[style='float: right']
+              = current_user.unread_count
         span<
         = link_to my_notifications_path, class: 'btn btn-outline-primary btn-sm' do
           = fa_icon('bell-o')

@@ -1,5 +1,5 @@
 - if @current_chat.present?
-  - header("Мессенджер - #{@current_chat.title}")
+  - header("Мессенджер - #{@current_chat.title || @current_chat.users.where.not(users: { id: current_user.id }).first.full_name}")
 - else
   - header('Мессенджер')
 - breadcrumb(:my_messenger)
@@ -9,14 +9,15 @@
       | Начать новый диалог
     br
     h4 Мои чаты
-    .list-group
+    .list-group.chats
     - @chats.each do |c|
       = link_to my_chats_path(current_chat: c.id) do
-        button.list-group-item.list-group-item-action.user_trigger[type="button"]
+        button.list-group-item.list-group-item-action.user_trigger[type="button", data-chat_id="#{c.id}"]
           .user-in-list
-            = c.title
+            -# c.title
+            = c.title || c.users.where.not(users: { id: current_user.id }).first.full_name
             span.badge.badge-primary[style='float: right']
-              = c.unread_count(current_user) if c.id != @current_chat&.id && c.unread_count(current_user) != 0 
+              = c.unread_count(current_user) if c.id != @current_chat&.id && c.unread_count(current_user) != 0
             - c.users.where.not(id: current_user.id).limit(3).each do |u|
               .user-avatar-in-list
                 = image_tag(u.avatar.thumb)
@@ -28,7 +29,7 @@
           li.list-group-item
             .user-in-list
               .user-avatar-in-list
-                = image_tag(m.user.avatar.thumb)
+                = image_tag(m.author.avatar.thumb)
             p
               = m.content
             - if m.attachment.present?
