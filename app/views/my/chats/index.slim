@@ -27,25 +27,31 @@
       ul.list-group.list-group-flush.chat-container
         - @current_chat.messages.each do |m|
           li.list-group-item
-            .user-in-list
-              .user-avatar-in-list
-                = image_tag(m.author.avatar.thumb)
-            p
-              = m.content
-            - if m.attachment.present?
-              - if m.attachment.image?
-                = image_tag(m.attachment.messenger, class: 'message_attachment')
-              - else
-                .alert.alert-info[role="alert" style='width: 80%; float: left']
-                  = m.attachment.file.filename
-                  | &nbsp;
-                  | &nbsp;
-                  = link_to m.attachment.url, class: 'btn btn-outline-primary btn-sm' do
-                    = fa_icon('download')
-
-            p.timestamp = l(m.created_at, format: :short)
+            .row
+              .col-md-1
+                .user-in-list
+                  .user-avatar-in-list
+                    = image_tag(m.author.avatar.thumb)
+              .col-md-10
+                .user-message-in-list
+                  p[style='white-space: pre-wrap;']
+                    = m.content
+                  - if m.attachment.present?
+                    - if m.attachment.image?
+                      = image_tag(m.attachment.messenger, class: 'message_attachment')
+                    - else
+                      .alert.alert-info[role="alert" style='width: 80%; float: left']
+                        = m.attachment.file.filename
+                        | &nbsp;
+                        | &nbsp;
+                        = link_to m.attachment.url, class: 'btn btn-outline-primary btn-sm' do
+                          = fa_icon('download')
+              .col-md-1
+                .message-timestamp-in-list[style='width: 5%']
+                  p.timestamp = l(m.created_at, format: :short)
+  
       .new-message
-        = form_for :message, multipart: true, remote: false, url: { controller: 'messages', action: "create" }, html: { style: 'min-width: 100%' } do |f|
+        = form_for :message, multipart: true, remote: false, url: { controller: 'messages', action: "create" }, html: { style: 'min-width: 100%', id: 'messages_form'} do |f|
           .row
             .col-md-1
               span[id='fake-input', class='btn btn-outline-primary btn-sm fileinput-button']
@@ -59,7 +65,7 @@
               | &nbsp;
               = f.hidden_field(:chat_id, value: @current_chat.id)
             .col-md-2
-              = f.submit 'Отправить', class: 'btn btn-primary'
+              = f.submit 'Отправить', class: 'btn btn-primary', id: 'message_submit'
     - else
       = alert_block(:warning, icon: 'comments', text: 'Выберите пользователя, чтобы начать диалог')
   = render('select_user', users: @users)
@@ -71,6 +77,21 @@ javascript:
       objDiv[0].scrollTop = objDiv[0].scrollHeight;
     }
   });
+
+  $('#message_content').keyup(function (event) {
+    if ( event.keyCode == 13 ) {
+      var content = this.value;
+      var caret = this.selectionStart;
+      if ( !event.shiftKey ) {
+        this.value = content.substring(0, caret - 1) + content.substring(caret, content.length);
+        $('#messages_form').submit();
+      } else {
+        this.value = content.substring(0, caret - 1) + "\n" + content.substring(caret, content.length);
+        event.stopPropagation();
+      }
+    }
+   });
+
   /* $('#file-input').hide(); */
 
   $('#fake-input').click (function() {
