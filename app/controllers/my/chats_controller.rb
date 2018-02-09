@@ -1,7 +1,7 @@
 module My
   class ChatsController < BaseController
     def index
-      @chats = current_user.chats
+      @chats = current_user.chats.by_messages + current_user.chats.without_messages
       @users = users_no_chat
       @current_chat = Chat.find(params[:current_chat]) if params[:current_chat] && chat_member?(params[:current_chat])
       if @current_chat.present?
@@ -53,7 +53,7 @@ module My
 
     def broadcast_new_chat
       fellow = @new_chat.users.where.not(id: current_user.id).first
-      user_avatar = fellow.avatar.thumb.url
+      user_avatar = fellow&.avatar&.thumb&.url
       new_chat_params = { chat_id: @new_chat.id,
                           user_avatar: user_avatar,
                           author_id: @current_user.id,
