@@ -6,10 +6,8 @@ ready = ->
   },
   connected: ->
     # Called when the subscription is ready for use on the server
-
   disconnected: ->
     # Called when the subscription has been terminated by the server
-
   received: (data) ->
     if window.location.search.substr(1) == "current_chat=#{data.chat_id}"
       if data.img_attachment != null
@@ -52,9 +50,7 @@ ready = ->
           #{data.message} \
           <p class='timestamp'>#{data.created}<p> \
         </li>")
-      objDiv = $('.chat-container')
-      if objDiv.length > 0
-        objDiv[0].scrollTop = objDiv[0].scrollHeight;
+      window.scrollTo(0,document.body.scrollHeight);
 
 
 if typeof Turbolinks == "undefined"

@@ -33,7 +33,6 @@ module My
     def chat_exists(user_id)
       # TODO
       if user_id.in?(Chat.joins(:users).pluck('users.id'))
-        # Chat.joins(:users).where('users.id IN (?)' [1, 2]).first
         Chat.joins(:users).where('users.id = ? AND users.id = ?', user_id, current_user).first&.id
       end
     end

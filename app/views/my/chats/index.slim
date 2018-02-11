@@ -12,16 +12,20 @@
       br
       h4.header-fourth Мои чаты
       .list-group.chats
-      - @chats.each do |c|
-        = link_to my_chats_path(current_chat: c.id) do
-          button.list-group-item.list-group-item-action.user_trigger[type="button", data-chat_id="#{c.id}"]
-            .user-in-list
-              = c.title || c.users.where.not(users: { id: current_user.id }).first.full_name
-              span.badge.badge-primary[style='float: right']
-                = c.unread_count(current_user) if c.id != @current_chat&.id && c.unread_count(current_user) != 0
-              - c.users.where.not(id: current_user.id).limit(3).each do |u|
-                .user-avatar-in-list
-                  = image_tag(u.avatar.thumb)
+        - @chats.each do |c|
+          = link_to my_chats_path(current_chat: c.id), data: { turbolinks: false } do
+            button.list-group-item.list-group-item-action.user_trigger[type="button", data-chat_id="#{c.id}"]
+              .user-in-list[data-chat_id="#{c.id}"]
+                = c.title || c.users.where.not(users: { id: current_user.id }).first.full_name
+                - if c.id != @current_chat&.id && c.unread_count(current_user) != 0
+                  span.badge.badge-primary.chat_unread[style='float: right']
+                    = c.unread_count(current_user)
+                - c.users.where.not(id: current_user.id).limit(3).each do |u|
+                  .user-avatar-in-list
+                    = image_tag(u.avatar.thumb)
+                br
+                p.last_message[style='color: grey' data-chat_id="#{c.id}"]
+                  = c.messages.last.content.truncate(25)
 
     .col-md-8.messages-column
       - if @current_chat.present?
@@ -73,10 +77,7 @@
 
 javascript:
   $(document).ready( function() {
-    var objDiv = $('.chat-container');
-    if (objDiv.length > 0){
-      objDiv[0].scrollTop = objDiv[0].scrollHeight;
-    }
+    window.scrollTo(0,document.body.scrollHeight);
   });
 
   $('#message_content').keyup(function (event) {
@@ -98,41 +99,64 @@ javascript:
   $('#fake-input').click (function() {
     $('#file-input').trigger('click');
   });
-css:
-  .app {
-    position: relative;
-    margin-top: 192px;
-    padding: 2rem 0;
-    margin-left: 20,873786408%;
-    padding-top: 0
-  }
 
-  @media only screen and (min-width: 768px) and (orientation: landscape) {
-    .messenger-header {
-      margin-top: 0;
-      position: fixed;
-      z-index: 111;
-      background-color: #fff;
-      width: 1140px;
-      height: 80px;
+- if @current_chat.present?
+  css:
+    @media only screen and (min-width: 768px) and (orientation: landscape) {
+      .messenger-header {
+        margin-top: 0;
+        position: fixed;
+        z-index: 111;
+        background-color: #fff;
+        width: 1140px;
+        height: 80px;
+      }
+      .select_chat {
+        margin-top: 80px;
+        width: 390px !important;
+        position: fixed;
+      }
+      .chat-container {
+        height: auto;
+        margin-bottom: 80px;
+        overflow-y: hidden;
+      }
+      .chat-container {
+        margin-top: 80px;
+        height: auto;
+        overflow-y: hidden;
+      }
+      .messages-column {
+        margin-left: 390px;
+      }
+      .new-message {
+        position: fixed;
+        bottom: -20px;
+        z-index: 112;
+        width: 750px;
+        height: 100px;
+      }
     }
-    .select_chat {
-      margin-top: 80px;
-      width: 390px !important;
-      position: fixed;
+- if @current_chat.present? && @current_user.teacher?
+  css:
+    @media only screen and (min-width: 768px) and (orientation: landscape) {
+      .app {
+        position: relative;
+        margin-top: 136px;
+        padding: 2rem 0;
+        margin-left: 20,873786408%;
+        padding-top: 0
+      }
     }
-    .chat-container {
-      margin-top: 80px;
-      height: auto;
-      overflow-y: hidden;
+
+- if @current_chat.present? && @current_user.admin?
+  css:
+    @media only screen and (min-width: 768px) and (orientation: landscape) {
+      .app {
+        position: relative;
+        margin-top: 192px;
+        padding: 2rem 0;
+        margin-left: 20,873786408%;
+        padding-top: 0
+      }
     }
-    .messages-column {
-      margin-left: 390px;
-    }
-    .new-message {
-      position:fixed;
-      bottom: -20px;
-      z-index: 112;
-      width: 750px;
-    }
-  }

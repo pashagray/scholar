@@ -40,7 +40,7 @@ gem 'wisper', '2.0.0'
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'factory_girl_rails'
-  gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
+  gem 'faker', git: 'https://github.com/stympy/faker.git', branch: 'master'
   gem 'pry-rails'
   gem 'rspec-rails'
   gem 'rubocop'

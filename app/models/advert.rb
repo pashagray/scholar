@@ -4,5 +4,5 @@ class Advert < ApplicationRecord
 
   validates :title, :content, presence: true
 
-  acts_as_notifiable :users, targets: -> (advert, key) { advert.advertable.subscribers - [advert.author] }
+  acts_as_notifiable :users, targets: ->(advert, key) { advert.advertable.subscribers - [advert.author] }
 end

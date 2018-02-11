@@ -98,6 +98,5 @@ class User < ApplicationRecord
 
   def unread_count
     self.chats.joins(:messages).count - self.read_messages.count
-    # Message.where('id NOT IN (?)', self.read_messages.select(:id)).count
   end
 end

@@ -5,9 +5,10 @@
         = link_to my_messenger_path, class: 'btn btn-outline-primary btn-sm' do
           = fa_icon('comment-o')
           | &nbsp;
-          - if current_user.unread_count && current_user.unread_count > 0
-            span.badge.badge-primary.total_unread[style='float: right']
-              = current_user.unread_count
+          .total_unread_empty
+            - if current_user.unread_count && current_user.unread_count > 0
+              span.badge.badge-primary.total_unread[style='float: right']
+                = current_user.unread_count
         span<
         = link_to my_notifications_path, class: 'btn btn-outline-primary btn-sm' do
           = fa_icon('bell-o')
@@ -67,7 +68,7 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark.second-header
             = active_link_to 'Классы', admin_study_groups_path, class: 'nav-link'
           li.nav-item
             = active_link_to 'Расписание', admin_schedule_path, class: 'nav-link'
-- if controller.controller_name == 'chats'
+- if controller.controller_name == 'chats' && @current_chat.present?
   css:
     .current-user-bar {
       position: fixed;
