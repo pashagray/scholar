@@ -14,7 +14,7 @@ ready = ->
         $('.chat-container').append(" \
         <li class='list-group-item'> \
           <div class='user-in-list'> \
-            <div class='user-avatar-in-list'> \
+            <div class='user-avatar-in-list-small'> \
               <img src='#{data.sender_avatar_url}' alt='avatar'> \
             </div> \
           </div> \
@@ -26,7 +26,7 @@ ready = ->
         $('.chat-container').append(" \
         <li class='list-group-item'> \
           <div class='user-in-list'> \
-            <div class='user-avatar-in-list'> \
+            <div class='user-avatar-in-list-small'> \
               <img src='#{data.sender_avatar_url}' alt='avatar'> \
             </div> \
           </div> \
@@ -43,7 +43,7 @@ ready = ->
         $('.chat-container').append(" \
         <li class='list-group-item'> \
           <div class='user-in-list'> \
-            <div class='user-avatar-in-list'> \
+            <div class='user-avatar-in-list-small'> \
               <img src='#{data.sender_avatar_url}' alt='avatar'> \
             </div> \
           </div> \
