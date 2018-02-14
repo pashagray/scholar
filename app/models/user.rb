@@ -33,6 +33,9 @@ class User < ApplicationRecord
   has_many :user_in_groups
   has_many :user_groups, through: :user_in_groups
 
+  has_many :messages_users, dependent: :destroy
+  has_many :read_messages, class_name: 'Message', through: :messages_users, source: :message
+  has_and_belongs_to_many :chats
   scope :students,   -> { joins(:student_profile) }
   scope :teachers,   -> { joins(:teacher_profile) }
   scope :custodians, -> { joins(:custodian_profile) }
@@ -40,10 +43,10 @@ class User < ApplicationRecord
 
   scope :with_temp_password, -> { where(id: all.map { |u| u.id if u.is_password_change_required? }.compact) }
 
-  scope :students_without_study_group, -> { 
+  scope :students_without_study_group, -> {
     students
     .joins('LEFT OUTER JOIN study_group_students ON (users.id = study_group_students.user_id)')
-    .where('study_group_students.user_id IS NULL') 
+    .where('study_group_students.user_id IS NULL')
   }
 
   scope :alphabetical_order, -> { order(:last_name, :first_name, :middle_name) }
@@ -91,5 +94,9 @@ class User < ApplicationRecord
 
   def printable_notifier_name
     full_name
+  end
+
+  def unread_count
+    self.chats.joins(:messages).count - self.read_messages.count
   end
 end

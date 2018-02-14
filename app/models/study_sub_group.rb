@@ -1,7 +1,7 @@
 class StudySubGroup < ApplicationRecord
 
   include Delegatable
-  
+
   validates :title, uniqueness: { scope: :study_group_id }
   belongs_to :study_group
 

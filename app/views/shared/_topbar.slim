@@ -1,9 +1,14 @@
-.current-user-bar
+.current-user-bar[data-id="#{current_user.id}"]
   .container
     .pull-right style="line-height: 2.8;"
       .notification-bar
         = link_to my_messenger_path, class: 'btn btn-outline-primary btn-sm' do
           = fa_icon('comment-o')
+          | &nbsp;
+          .total_unread_empty
+            - if current_user.unread_count && current_user.unread_count > 0
+              span.badge.badge-primary.total_unread[style='float: right']
+                = current_user.unread_count
         span<
         = link_to my_notifications_path, class: 'btn btn-outline-primary btn-sm' do
           = fa_icon('bell-o')
@@ -15,13 +20,13 @@
     b = current_user.full_name
     p
       small = link_to('Моя страница', my_path)
-      small< |    
+      small< |
       small = link_to('Выйти', destroy_user_session_path, method: :delete)
 
-nav.navbar.navbar-expand-md.navbar-dark.bg-dark
+nav.navbar.navbar-expand-md.navbar-dark.bg-dark.second-header
   .container
     a.navbar-brand href='/' = Setting.school_title_short
-    button.navbar-toggler aria-controls="navbarNavDropdown" aria-expanded="false" aria-label=("Toggle navigation") data-target="#navbarNavDropdown" data-toggle="collapse" type="button" 
+    button.navbar-toggler aria-controls="navbarNavDropdown" aria-expanded="false" aria-label=("Toggle navigation") data-target="#navbarNavDropdown" data-toggle="collapse" type="button"
       span.navbar-toggler-icon
     #navbarNavDropdown.collapse.navbar-collapse
       ul.navbar-nav
@@ -43,11 +48,11 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark
           = active_link_to 'Моя школа', my_school_path, class: 'nav-link'
 
 - if current_user.admin?
-  nav.navbar.navbar-expand-md.navbar-dark style="background-color: #5B5B5B;"
+  nav.navbar.navbar-expand-md.navbar-dark.header-third style="background-color: #5B5B5B;"
     .container
       = active_link_to admin_path, class: 'navbar-brand', active: :exact do
         = fa_icon('star')
-      button.navbar-toggler aria-controls="adminNavbarNavDropdown" aria-expanded="false" aria-label=("Toggle navigation") data-target="#adminNavbarNavDropdown" data-toggle="collapse" type="button" 
+      button.navbar-toggler aria-controls="adminNavbarNavDropdown" aria-expanded="false" aria-label=("Toggle navigation") data-target="#adminNavbarNavDropdown" data-toggle="collapse" type="button"
         span.navbar-toggler-icon
       #adminNavbarNavDropdown.collapse.navbar-collapse
         ul.navbar-nav
@@ -63,3 +68,26 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark
             = active_link_to 'Классы', admin_study_groups_path, class: 'nav-link'
           li.nav-item
             = active_link_to 'Расписание', admin_schedule_path, class: 'nav-link'
+- if controller.controller_name == 'chats' && @current_chat.present?
+  css:
+    .current-user-bar {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      background-color: #fff;
+      z-index: 111;
+    }
+    .second-header {
+      position: fixed;
+      width: 100%;
+      margin-top: 80px;
+      top: 0;
+      z-index: 111;
+     }
+    .header-third {
+      position: fixed;
+      width: 100%;
+      margin-top: 136px;
+      top: 0;
+      z-index: 111;
+    }

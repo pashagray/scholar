@@ -1,0 +1,37 @@
+#exampleModalLong.modal.fade[tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"]
+  .modal-dialog[role="document"]
+    .modal-content
+      .modal-header
+        h5#exampleModalLongTitle.modal-title
+          | Выберите собеседника
+        button.close[type="button" data-dismiss="modal" aria-label="Close"]
+          span[aria-hidden="true"]
+            | ×
+      input.form-control[type='text', id='search-user' style='width:90%; margin-left: 5%']
+      .modal-body
+        .list-group
+          - users.each do |u|
+            button.list-group-item.list-group-item-action.user_trigger.user_select[type="button" data-user="#{u.id}"]
+              .user-in-list
+                = u.full_name
+                .user-avatar-in-list
+                  = image_tag(u.avatar.thumb)
+      .modal-footer
+        button.btn.btn-secondary[type="button" data-dismiss="modal"]
+          | Закрыть
+        = form_for :chat, url: { controller: 'chats', action: "create" } do |f|
+          = f.hidden_field(:user_id, id: 'user_id')
+          = f.submit 'Начать диалог', class: 'btn btn-primary'
+
+javascript:
+  $('.user_trigger').click (function() {
+   $('#user_id').val($(this).data('user'));
+  });
+  $(document).ready(function(){
+    $("#search-user").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $(".list-group .list-group-item .user-in-list").filter(function() {
+        $(this).parent().toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });

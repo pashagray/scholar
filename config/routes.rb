@@ -8,7 +8,10 @@ Rails.application.routes.draw do
 
   namespace :my do
     get '/', to: 'welcome#index'
-    get '/messenger', to: 'messenger#index'
+    get '/messenger', to: 'chats#index'
+
+    resources :messages, only: %i(new create)
+    resources :chats, only: %i(index show create)
 
     get '/school', to: 'user_groups#school'
     resources :user_groups do

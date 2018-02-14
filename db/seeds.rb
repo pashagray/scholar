@@ -30,4 +30,3 @@ teacher = User.create(
   remote_avatar_url: av_gen.call
 )
 TeacherProfile.create(user_id: teacher.id)
-
