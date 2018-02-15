@@ -33,6 +33,9 @@ class User < ApplicationRecord
   has_many :user_in_groups
   has_many :user_groups, through: :user_in_groups
 
+  has_many :user_in_chats
+  has_many :chats, through: :user_in_chats
+
   scope :students,   -> { joins(:student_profile) }
   scope :teachers,   -> { joins(:teacher_profile) }
   scope :custodians, -> { joins(:custodian_profile) }
@@ -47,6 +50,12 @@ class User < ApplicationRecord
   }
 
   scope :alphabetical_order, -> { order(:last_name, :first_name, :middle_name) }
+
+  scope :not_chating_with, -> (user) do
+    chats_ids = user.chats.dialogs.pluck(:id)
+    user_in_chats_ids = UserInChat.where(chat_id: chats_ids).pluck(:user_id)
+    users = User.where.not(id: user_in_chats_ids)
+  end
 
   def student?
     !!student_profile

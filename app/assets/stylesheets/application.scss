@@ -1,6 +1,7 @@
 @import 'bootstrap';
 @import 'daterangepicker-bs3';
 @import 'font-awesome';
+@import 'messenger';
 
 .current-user-bar {
   padding: 1rem 0;
@@ -29,6 +30,17 @@
 }
 
 .notifications-count {
+  font-size: 80%;
+  padding: 0 0.3rem;
+  background-color: red;
+  color: white;
+  border-radius: 1rem;
+  position: absolute;
+  top: 0.2rem;
+  line-height: 140%;
+}
+
+.messages-count {
   font-size: 80%;
   padding: 0 0.3rem;
   background-color: red;

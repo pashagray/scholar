@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { sessions: 'users/sessions' }
+  mount ActionCable.server => '/cable'
   # notify_to :users, with_devise: :users
 
   root to: 'welcome#index'
@@ -7,6 +8,13 @@ Rails.application.routes.draw do
   post 'table_config', to: 'table_config#update'
 
   namespace :my do
+    resources :chats do
+      member do
+        get :messages
+        post :add_message
+      end
+    end
+
     get '/', to: 'welcome#index'
     get '/messenger', to: 'messenger#index'
 

@@ -1,16 +1,3 @@
-- header('Мессенджер')
-- breadcrumb(:my_messenger)
-.row
-  .col-md-4
-    a.btn.btn-outline-primary.btn-block href="#" Начать новый диалог
-    br
-    h4 Мои чаты
-    - u = User.all.sample
-    .user-in-list
-      .user-avatar-in-list
-        = image_tag(u.avatar.thumb)
-      = u.full_name
-      p
-        small = link_to 'Открыть чат', admin_user_path(u)
-  .col-md-8
-    = alert_block(:warning, icon: 'comments', text: 'Выберите пользователя, чтобы начать диалог')
+/ - header('Мессенджер')
+/ - breadcrumb(:my_messenger)
+= react_component('Messenger', { chats: @chats, currentUserId: current_user.id, users: @users })

@@ -1,0 +1,39 @@
+.MessageInChat {
+  padding: 0.3rem 0.5rem;
+  background-color: #F0F0F0;
+  border-radius: 6px 6px 6px 3px;
+  position: relative;
+  display: inline-block;
+  margin-bottom: 0.9rem;
+  max-width: 60%;
+}
+
+.MessageInChat:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-right-color: #F0F0F0;
+  border-left: 0;
+  border-top: 0;
+  margin-left: -9px;
+  margin-top: -10px;
+}
+
+
+.MessageInChat.current {
+  background-color: #007bff;
+  color: white;
+}
+
+.MessageInChat.current:before {
+  border-right-color: #007bff;
+}
+
+.ChatView {
+  height: 350px;
+  overflow: scroll;
+}
