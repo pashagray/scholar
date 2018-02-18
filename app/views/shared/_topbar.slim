@@ -4,7 +4,7 @@
       .notification-bar
         = link_to my_messenger_path, class: 'btn btn-outline-primary btn-sm' do
           = fa_icon('comment-o')
-          - count = current_user.user_in_chats.map(&:unread_messages).reduce(:+)
+          - count = current_user.user_in_chats.map(&:unread_messages).reduce(:+) || 0
           - if count > 0
             span.messages-count<
               = count
