@@ -101,6 +101,16 @@ class Chat extends React.Component {
         <h2><i className="fa fa-comment"></i></h2>
         <p>Сообщений еще нет. Начните первым!</p>
         <div ref={(el) => { this.chatBottom = el }}></div>
+        <form onSubmit={(e) => this.submitMessage(e)}>
+          <div className="row">
+            <div className="col-md-9">
+              <textarea style={{height: this.state.inputHeight}} className="form-control" value={this.state.value} onChange={this.handleInputChange} />
+            </div>
+            <div className="col-md-3">
+              <button style={{height: this.state.inputHeight}} className="btn btn-primary btn-block">Отправить</button>
+            </div>
+          </div>
+        </form>
       </div>
     )
   }
