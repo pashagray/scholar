@@ -3,3 +3,12 @@
     .card-header
       = fa_icon('star')
       span< Администратор
+    .card-body
+      = link_to 'Убрать роль администратора', admin_user_admin_profile_path(user.admin_profile, user_id: user.id), method: 'DELETE', class: 'btn btn-block btn-outline-light'
+- else
+  .card.bg-light.mb-3
+    .card-header Не является администратором
+    .card-body
+      p.card-text Этот пользователь не является администратором.
+      p.card-text
+        = link_to 'Назначить администратором', admin_user_admin_profiles_path(user_id: user.id), method: 'POST', class: 'btn btn-block btn-outline-success'

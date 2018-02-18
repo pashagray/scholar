@@ -25,3 +25,5 @@
 .DS_Store
 
 /db/schema.rb
+
+dump.rdb

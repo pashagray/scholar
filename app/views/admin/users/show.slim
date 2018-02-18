@@ -18,9 +18,9 @@
     = render('admin/student_profiles/data_set', user: @user)
     = render('admin/teacher_profiles/data_set', user: @user)
   .col-md-4
-    = render('admin/admin_profiles/card', user: @user)
     = render('admin/student_profiles/card', user: @user)
     = render('admin/teacher_profiles/card', user: @user)
+    = render('admin/admin_profiles/card', user: @user)
 .row
   .col-md-4
     = form_for [:admin, Attachment.new] do |f|
